@@ -101,26 +101,17 @@
       .grid { grid-template-columns: 1fr; }
       .grid-2 { grid-template-columns: 1fr; }
     }
-	  
 	  /* Mobile responsiveness + Hamburger menu */
 	@media (max-width: 768px) {
-  	/* Hero section: stack columns */
-  	.hero {
-    	grid-template-columns: 1fr;
-    	text-align: center;
-  	}
-
-  	/* Hamburger toggle */
   	.menu-toggle {
-    	display: block;
+    	display: block; /* show hamburger */
     	cursor: pointer;
     	font-size: 1.5rem;
     	color: var(--text);
   	}
 
-  	/* Nav bar */
   	.nav {
-    	flex-direction: row; /* brand + toggle side by side */
+    	flex-direction: row;
     	justify-content: space-between;
     	align-items: center;
     	height: auto;
@@ -138,23 +129,7 @@
   	.nav-links.active {
     	display: flex; /* show when toggled */
   	}
-
-  	/* Project grid: single column */
-  	.grid {
-    	grid-template-columns: 1fr;
-  	}
-
-  	/* Experience grid: single column */
-  	.grid-2 {
-    	grid-template-columns: 1fr;
-  	}
-
-  	/* Buttons: full width on mobile */
-  	.btn {
-    	width: 100%;
-    	text-align: center;
-  	}
-	}	
+	}
   </style>
 </head>
 <body>
@@ -212,16 +187,15 @@
     <!-- Skills -->
     <section id="skills">
       <h2>Skills</h2>
-      <div class="skills">
-        <span class="chip">Python</span>
-	<span class="chip">MySQL</span>
-        <span class="chip">Power BI</span>
-        <span class="chip">Excel & Google Sheets</span>
-        <span class="chip">AutoCAD</span>
-        <span class="chip">Primavera</span>
-        <span class="chip">MX Road</span>
-
-      </div>
+		<div class="skills">
+			<span class="chip">Python</span>
+			<span class="chip">MySQL</span>
+        	<span class="chip">Power BI</span>
+        	<span class="chip">Excel & Google Sheets</span>
+        	<span class="chip">AutoCAD</span>
+        	<span class="chip">Primavera</span>
+        	<span class="chip">MX Road</span>
+      	</div>
     </section>
 
     <!-- Projects -->
@@ -356,8 +330,8 @@
   });
 </script>
 </body>
-
 </html>
+
 
 
 
