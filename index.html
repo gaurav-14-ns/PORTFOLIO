@@ -104,20 +104,23 @@
 	/* Mobile responsiveness */
 	@media (max-width: 768px) {
   	/* Hero section: stack columns */
-		/* Fix nav alignment on mobile */
-		.nav {
-  			flex-direction: column;
-  			align-items: center;
- 			height: auto;
- 			padding: 1rem 0;
-	}
+  	.hero {
+    	grid-template-columns: 1fr;
+    	text-align: center; /* center text on small screens */
+  	}
 
-		.nav-links {
-  			flex-direction: column;
-  			align-items: center;
-  			gap: 0.75rem;
-	}
-  	
+  	/* Fix nav alignment on mobile */
+  	.nav {
+    	flex-direction: column;
+    	align-items: center;
+    	height: auto;
+    	padding: 1rem 0;
+  	}
+
+  	.nav-links {
+    	flex-direction: column;
+    	align-items: center;
+    	gap: 0.75rem;
   	}
 
   	/* Project grid: single column */
@@ -128,12 +131,6 @@
   	/* Experience grid: single column */
   	.grid-2 {
     	grid-template-columns: 1fr;
-  	}
-
-  	/* Navigation links: stack vertically if needed */
-  	.nav-links {
-    	flex-direction: column;
-    	gap: 0.5rem;
   	}
 
   	/* Buttons: full width on mobile */
@@ -332,6 +329,7 @@
 </body>
 
 </html>
+
 
 
 
