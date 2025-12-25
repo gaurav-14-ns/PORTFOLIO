@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gaurav — Portfolio</title>
+  <style>
+    :root {
+      --bg: #0f172a;        /* slate-900 */
+      --panel: #111827;     /* gray-900 */
+      --text: #e5e7eb;      /* gray-200 */
+      --muted: #9ca3af;     /* gray-400 */
+      --accent: #22c55e;    /* green-500 */
+      --accent-contrast: #052e17;
+      --card: #0b1223;
+      --border: #1f2937;
+    }
+    .light {
+      --bg: #f8fafc;
+      --panel: #ffffff;
+      --text: #0f172a;
+      --muted: #475569;
+      --accent: #0ea5e9;    /* sky-500 */
+      --accent-contrast: #0b2a37;
+      --card: #ffffff;
+      --border: #e2e8f0;
+    }
+    html, body { margin:0; padding:0; }
+    body {
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Ubuntu, "Noto Sans", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .container { max-width: 1080px; margin: 0 auto; padding: 0 1.25rem; }
+    header {
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: saturate(180%) blur(8px);
+      background: color-mix(in oklab, var(--bg) 85%, transparent);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px;
+    }
+    .brand { display:flex; align-items:center; gap:.75rem; font-weight:700; }
+    .brand .avatar {
+      width:36px; height:36px; border-radius:50%;
+      background: var(--accent); color: #fff; display:grid; place-items:center; font-weight:800;
+    }
+    .nav-links { display:flex; gap:1rem; flex-wrap: wrap; }
+    .nav-links a { color: var(--text); padding:.5rem .75rem; border-radius:.5rem; }
+    .nav-links a:hover { background: var(--panel); }
+    .tools { display:flex; align-items:center; gap:.5rem; }
+    .btn {
+      border: 1px solid var(--border);
+      background: var(--panel);
+      color: var(--text);
+      padding:.5rem .75rem; border-radius:.5rem; cursor:pointer;
+    }
+    .hero {
+      padding: 4rem 0 2rem;
+      display:grid; grid-template-columns: 1.2fr .8fr; gap:2rem; align-items:center;
+    }
+    .hero h1 { font-size: clamp(1.8rem, 3vw, 2.6rem); margin:0 0 .75rem; }
+    .hero p { color: var(--muted); margin:0 0 1rem; }
+    .badge { display:inline-block; background: var(--accent); color:#fff; padding:.25rem .5rem; border-radius:.375rem; font-size:.85rem; margin-right:.5rem; }
+    .cta { display:flex; gap:.75rem; flex-wrap: wrap; margin-top:1rem; }
+    .cta .primary { background: var(--accent); color:#fff; border: none; }
+    .panel {
+      background: var(--card); border:1px solid var(--border); border-radius: .75rem; padding:1rem;
+    }
+    section { padding: 2rem 0; }
+    h2 { font-size: 1.4rem; margin:0 0 1rem; }
+    .grid { display:grid; grid-template-columns: repeat(3, 1fr); gap:1rem; }
+    .grid-2 { grid-template-columns: repeat(2, 1fr); }
+    .card { background: var(--card); border:1px solid var(--border); border-radius:.75rem; padding:1rem; }
+    .card h3 { margin:.25rem 0 .5rem; font-size:1.1rem; }
+    .meta { color: var(--muted); font-size:.9rem; }
+    .skills { display:flex; gap:.5rem; flex-wrap: wrap; }
+    .chip { border:1px solid var(--border); padding:.25rem .5rem; border-radius:.5rem; color: var(--muted); }
+    footer {
+      border-top: 1px solid var(--border); padding: 2rem 0; color: var(--muted);
+    }
+    .resume { display:flex; gap:.5rem; align-items:center; }
+    .social { display:flex; gap:.75rem; flex-wrap: wrap; }
+    .social a { border:1px solid var(--border); padding:.5rem .75rem; border-radius:.5rem; }
+    .contact-form { display:grid; gap:.75rem; }
+    input, textarea {
+      background: var(--panel); color: var(--text);
+      border:1px solid var(--border); border-radius:.5rem; padding:.6rem .7rem; width:100%;
+    }
+    input::placeholder, textarea::placeholder { color: var(--muted); }
+    textarea { min-height: 120px; }
+    .note { font-size:.9rem; color: var(--muted); }
+    /* Responsive */
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; }
+      .grid { grid-template-columns: 1fr; }
+      .grid-2 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <div class="avatar" aria-hidden="true">G</div>
+        <div>Gaurav</div>
+      </div>
+      <nav class="nav-links">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#experience">Experience</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="tools">
+        <button class="btn" id="theme">Toggle theme</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Hero -->
+    <section class="hero">
+      <div>
+        <span class="badge">Open to opportunities</span>
+        <h1>Data-driven builder who loves turning messy spreadsheets and Python scripts into clear, useful products.</h1>
+        <p>Hi, I’m Gaurav from Assam. I work across Python, Power BI, MySQL and Excel automation to make data reliable, fast, and visual. I learn by building and ship what I learn.</p>
+        <div class="cta">
+          <a class="btn primary" href="#projects">View projects</a>
+          <a class="btn" href="#contact">Contact me</a>
+        </div>
+        <div class="resume" style="margin-top:.75rem;">
+          <a href="assets/Gaurav_Resume.pdf" download>Download resume (PDF)</a>
+          <span class="meta"></span>
+        </div>
+    </section>
+
+    <!-- About -->
+    <section id="about">
+      <h2>About</h2>
+      <div class="card">
+        <p>I thrive on practical, example-driven work: cleaning datasets, designing visual dashboards, and automating repetitive tasks. Recent focus: building resilient data pipelines and clear visuals for decision-making.</p>
+        <p>Total Experience: <span id="experience"></span></p>
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills">
+      <h2>Skills</h2>
+      <div class="skills">
+        <span class="chip">Python</span>
+	<span class="chip">MySQL</span>
+        <span class="chip">Power BI</span>
+        <span class="chip">Excel & Google Sheets</span>
+        <span class="chip">AutoCAD</span>
+        <span class="chip">Primavera</span>
+        <span class="chip">MX Road</span>
+
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects">
+      <h2>Projects</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>PROJECT 1</h3>
+          <p>PROJECT 1 BRIEF.</p>
+          <p class="meta">Tech: skill, skill, skill, ...</p>
+          <div class="cta">
+            <a href="#" target="_blank">Live demo</a>
+            <a href="#" target="_blank">GitHub</a>
+          </div>
+        </article>
+        <article class="card">
+          <h3>PROJECT 2</h3>
+          <p>PROJECT 2 BRIEF.</p>
+          <p class="meta">Tech: skill, skill, skill, ...</p>
+          <div class="cta">
+            <a href="#" target="_blank">Docs</a>
+            <a href="#" target="_blank">GitHub</a>
+          </div>
+        </article>
+        <article class="card">
+          <h3>PROJECT 3</h3>
+          <p>PROJECT 3 BRIEF.</p>
+          <p class="meta">Tech: skill, skill, skill, ...</p>
+          <div class="cta">
+            <a href="#" target="_blank">Video</a>
+            <a href="#" target="_blank">Download</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Experience -->
+    <section id="experience">
+      <h2>Experience</h2>
+      <div class="grid grid-2">
+        <div class="card">
+          <h3>Project Engineer — NEDFi</h3>
+          <p>Monitoring and recording the progress of the projects sanctioned under the MDoNER across the NE Region, in an organised and presentable method. Occationally, co-ordinating with the Central and State Govt. bodies to resolve any bottleneck(s), and inspect the project(s) and prepare its report(s) as and when required by the management.</p>
+          <p class="meta">May 2024–Present • WFO</p>
+        </div>
+        <div class="card">
+          <h3>Assistant Engineer — Alliance Engineers & Consultants</h3>
+          <p>Preparation of DPRs for various projects sanctioned under ARRBP, funded by the World Bank. Generated hydrology reports, horizontal and vertical alignment of bridge and approach roads, and key plan of the project site.</p>
+          <p class="meta">Feb 2023 to Apr 2024 • WFO</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+      <h2>Contact</h2>
+      <div class="card">
+        <p>Want to collaborate or have a data problem to solve? Reach out—happy to help.</p>
+        <form class="contact-form" onsubmit="alert('This is a static site. Replace with your form endpoint.'); return false;">
+          <div>
+            <label for="name">Name</label>
+            <input id="name" name="name" type="text" placeholder="Your name" required />
+          </div>
+          <div>
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" placeholder="you@example.com" required />
+          </div>
+          <div>
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="How can I help?" required></textarea>
+          </div>
+          <button class="btn primary" type="submit">Send message</button>
+          <p class="note">Tip: connect this form to a service (e.g., Formspree or Netlify Forms) to receive emails.</p>
+        </form>
+        <div class="social" style="margin-top:.75rem;">
+          <a href="https://github.com/yourhandle" target="_blank">GitHub</a>
+          <a href="https://linkedin.com/in/yourhandle" target="_blank">LinkedIn</a>
+          <a href="mailto:you@example.com">Email</a>
+          <a href="https://twitter.com/yourhandle" target="_blank">X/Twitter</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>© <span id="year"></span> Gaurav. Built with HTML & CSS. Hosted anywhere.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+    // Theme toggle
+    const btn = document.getElementById('theme');
+    btn.addEventListener('click', () => {
+      document.body.classList.toggle('light');
+      localStorage.setItem('theme', document.body.classList.contains('light') ? 'light' : 'dark');
+    });
+    // Persist theme
+    const saved = localStorage.getItem('theme');
+    if (saved === 'light') document.body.classList.add('light');
+  </script>
+<script>
+  function calculateExperience(startDate) {
+    const start = new Date(startDate);
+    const now = new Date();
+
+    let years = now.getFullYear() - start.getFullYear();
+    let months = now.getMonth() - start.getMonth();
+
+    if (months < 0) {
+      years--;
+      months += 12;
+    }
+
+    return { years, months };
+  }
+
+  // Change this to your actual career start date (YYYY-MM-DD)
+  const exp = calculateExperience("2023-02-07");
+
+  document.getElementById("experience").textContent =
+    `${exp.years} years ${exp.months} months`;
+</script>
+</body>
+</html>
