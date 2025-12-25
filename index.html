@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <html lang="en">
 <head>
   <meta charset="utf-8" />
@@ -102,6 +103,36 @@
       .grid-2 { grid-template-columns: 1fr; }
     }
   </style>
+	/* Mobile responsiveness */
+@media (max-width: 768px) {
+  /* Hero section: stack columns */
+  .hero {
+    grid-template-columns: 1fr;
+    text-align: center; /* center text on small screens */
+  }
+
+  /* Project grid: single column */
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Experience grid: single column */
+  .grid-2 {
+    grid-template-columns: 1fr;
+  }
+
+  /* Navigation links: stack vertically if needed */
+  .nav-links {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  /* Buttons: full width on mobile */
+  .btn {
+    width: 100%;
+    text-align: center;
+  }
+}
 </head>
 <body>
   <header>
@@ -288,4 +319,5 @@
     `${exp.years} years ${exp.months} months`;
 </script>
 </body>
+
 </html>
