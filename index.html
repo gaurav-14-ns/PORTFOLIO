@@ -218,6 +218,7 @@
       <a href="#skills">Skills</a>
       <a href="#projects">Projects</a>
       <a href="#certifications">Certifications</a>
+      <a href="#internship">Internship</a>
       <a href="#experience">Experience</a>
       <a href="#contact">Contact</a>
     </nav>
@@ -230,117 +231,30 @@
 
 <main class="container">
 
-  <section class="hero">
-    <div>
-      <span class="badge">Open to opportunities</span>
-      <h1>Data-driven builder who turns messy spreadsheets and Python scripts into clean, useful products.</h1>
-      <p>Hi, I’m Gaurav from Assam. I work with Python, Power BI, MySQL and Excel automation.</p>
+  <!-- INTERNSHIP SECTION -->
+  <section id="internship">
+    <h2>Internship</h2>
 
-      <div class="cta">
-        <a class="btn primary" href="#projects">View projects</a>
-        <a class="btn" href="#contact">Contact me</a>
-      </div>
-
-      <div style="margin-top:.75rem;">
-        <a href="assets/Gaurav_Resume.pdf" download>Download resume (PDF)</a>
-      </div>
-    </div>
-  </section>
-
-  <section id="about">
-    <h2>About</h2>
-    <div class="card">
-      <p>I focus on practical, example-driven data work and automation.</p>
-      <p>Total Experience: <strong><span id="total-experience"></span></strong></p>
-    </div>
-  </section>
-
-  <section id="skills">
-    <h2>Skills</h2>
-    <div class="skills">
-      <span class="chip">Python</span>
-      <span class="chip">MySQL</span>
-      <span class="chip">Power BI</span>
-      <span class="chip">Excel</span>
-      <span class="chip">AutoCAD</span>
-      <span class="chip">Primavera</span>
-      <span class="chip">MX Road</span>
-    </div>
-  </section>
-
-<!-- ✅ CERTIFICATIONS SECTION -->
-<section id="certifications">
-  <h2>Certifications</h2>
-
-  <div class="grid grid-2">
-
-    <div class="card">
-      <h3>Data Analytics</h3>
-      <div style="margin-top:.5rem;">
-        <a href="assets/Data_Analytics_Certificate.pdf" download>
-          Download certificate (PDF)
-        </a>
-      </div>
-    </div>
-
-    <div class="card">
-      <h3>AutoCAD</h3>
-      <div style="margin-top:.5rem;">
-        <a href="assets/AutoCAD_Certificate.pdf" download>
-          Download certificate (PDF)
-        </a>
-      </div>
-    </div>
-
-    <div class="card">
-      <h3>Primavera</h3>
-      <div style="margin-top:.5rem;">
-        <a href="assets/Primavera_Certificate.pdf" download>
-          Download certificate (PDF)
-        </a>
-      </div>
-    </div>
-
-    <div class="card">
-      <h3>ESurvey CADD</h3>
-      <div style="margin-top:.5rem;">
-        <a href="assets/ESurvey_CADD_Certificate.pdf" download>
-          Download certificate (PDF)
-        </a>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-
-  <section id="projects">
-    <h2>Projects</h2>
-    <div class="grid">
-      <div class="card">Project 1</div>
-      <div class="card">Project 2</div>
-      <div class="card">Project 3</div>
-    </div>
-  </section>
-
-  <section id="experience">
-    <h2>Experience</h2>
     <div class="grid grid-2">
-      <div class="card">
-        <h3>Project Engineer — NEDFi</h3>
-        <p class="meta">May 2024 – Present</p>
-      </div>
-      <div class="card">
-        <h3>Assistant Engineer — Alliance Engineers & Consultants</h3>
-        <p class="meta">Feb 2023 – Apr 2024</p>
-      </div>
-    </div>
-  </section>
 
-  <section id="contact">
-    <h2>Contact</h2>
-    <div class="card">
-      <p>Email: <a href="mailto:you@example.com">gauravniwassarma101@gmail.com</a></p>
+      <div class="card">
+        <h3>Data Analytics Internship</h3>
+        <div style="margin-top:.5rem;">
+          <a href="assets/Data_Analytics_Internship_Certificate.pdf" download>
+            Download internship certificate (PDF)
+          </a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Power BI Internship</h3>
+        <div style="margin-top:.5rem;">
+          <a href="assets/PowerBI_Internship_Certificate.pdf" download>
+            Download internship certificate (PDF)
+          </a>
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -368,35 +282,13 @@
     document.body.classList.add("light");
   }
 
-  function calculateExperience(startDate) {
-    const start = new Date(startDate);
-    const now = new Date();
-    let years = now.getFullYear() - start.getFullYear();
-    let months = now.getMonth() - start.getMonth();
-    if (months < 0) {
-      years--;
-      months += 12;
-    }
-    return `${years} years ${months} months`;
-  }
-
-  document.getElementById("total-experience").textContent =
-    calculateExperience("2023-02-07");
-
   const toggle = document.querySelector(".menu-toggle");
   const navLinks = document.querySelector(".nav-links");
 
   toggle.addEventListener("click", () => {
     navLinks.classList.toggle("active");
   });
-
-  document.querySelectorAll(".nav-links a").forEach(link => {
-    link.addEventListener("click", () => {
-      navLinks.classList.remove("active");
-    });
-  });
 </script>
 
 </body>
 </html>
-
