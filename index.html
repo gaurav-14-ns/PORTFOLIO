@@ -231,30 +231,136 @@
 
 <main class="container">
 
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div>
+      <span class="badge">Open to opportunities</span>
+      <h1>Data-driven builder who turns messy spreadsheets and Python scripts into clean, useful products.</h1>
+      <p>Hi, I’m Gaurav from Assam. I work with Python, Power BI, MySQL and Excel automation.</p>
+
+      <div class="cta">
+        <a class="btn primary" href="#projects">View projects</a>
+        <a class="btn" href="#contact">Contact me</a>
+      </div>
+
+      <div style="margin-top:.75rem;">
+        <a href="assets/Gaurav_Resume.pdf" download>Download resume (PDF)</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT SECTION -->
+  <section id="about">
+    <h2>About</h2>
+    <div class="card">
+      <p>I focus on practical, example-driven data work and automation.</p>
+      <p>Total Experience: <strong><span id="total-experience"></span></strong></p>
+    </div>
+  </section>
+
+  <!-- SKILLS SECTION -->
+  <section id="skills">
+    <h2>Skills</h2>
+    <div class="skills">
+      <span class="chip">Python</span>
+      <span class="chip">MySQL</span>
+      <span class="chip">Power BI</span>
+      <span class="chip">MS Excel</span>
+      <span class="chip">AutoCAD</span>
+      <span class="chip">Primavera</span>
+      <span class="chip">MX Road</span>
+      <span class="chip">ESurvey CADD</span>
+    </div>
+  </section>
+
+  <!-- CERTIFICATIONS SECTION -->
+  <section id="certifications">
+    <h2>Certifications</h2>
+    <div class="grid grid-2">
+
+      <div class="card">
+        <h3>Data Analytics</h3>
+        <div style="margin-top:.5rem;">
+          <a href="assets/Data_Analytics_Certificate.pdf" download>Download certificate (PDF)</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>AutoCAD</h3>
+        <div style="margin-top:.5rem;">
+          <a href="assets/AutoCAD_Certificate.pdf" download>Download certificate (PDF)</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Primavera</h3>
+        <div style="margin-top:.5rem;">
+          <a href="assets/Primavera_Certificate.pdf" download>Download certificate (PDF)</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>ESurvey CADD</h3>
+        <div style="margin-top:.5rem;">
+          <a href="assets/ESurvey_CADD_Certificate.pdf" download>Download certificate (PDF)</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
   <!-- INTERNSHIP SECTION -->
   <section id="internship">
     <h2>Internship</h2>
-
     <div class="grid grid-2">
 
       <div class="card">
         <h3>APWD</h3>
         <div style="margin-top:.5rem;">
-          <a href="assets/APWD.pdf" download>
-            Download internship certificate (PDF)
-          </a>
+          <a href="assets/APWD.pdf" download>Download internship certificate (PDF)</a>
         </div>
       </div>
 
       <div class="card">
         <h3>Adani</h3>
         <div style="margin-top:.5rem;">
-          <a href="assets/Adani_Internship.pdf" download>
-            Download internship certificate (PDF)
-          </a>
+          <a href="assets/Adani_Internship.pdf" download>Download internship certificate (PDF)</a>
         </div>
       </div>
 
+    </div>
+  </section>
+
+  <!-- PROJECTS SECTION -->
+  <section id="projects">
+    <h2>Projects</h2>
+    <div class="grid">
+      <div class="card">Project 1</div>
+      <div class="card">Project 2</div>
+      <div class="card">Project 3</div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE SECTION -->
+  <section id="experience">
+    <h2>Experience</h2>
+    <div class="grid grid-2">
+      <div class="card">
+        <h3>Project Engineer — NEDFi</h3>
+        <p class="meta">May 2024 – Present</p>
+      </div>
+      <div class="card">
+        <h3>Assistant Engineer — Alliance Engineers & Consultants</h3>
+        <p class="meta">Feb 2023 – Apr 2024</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT SECTION -->
+  <section id="contact">
+    <h2>Contact</h2>
+    <div class="card">
+      <p>Email: <a href="mailto:gauravniwassarma101@gmail.com">gauravniwassarma101@gmail.com</a></p>
     </div>
   </section>
 
@@ -267,8 +373,10 @@
 </footer>
 
 <script>
+  // Set current year
   document.getElementById("year").textContent = new Date().getFullYear();
 
+  // Theme toggle
   const themeBtn = document.getElementById("theme");
   themeBtn.addEventListener("click", () => {
     document.body.classList.toggle("light");
@@ -277,19 +385,37 @@
       document.body.classList.contains("light") ? "light" : "dark"
     );
   });
-
   if (localStorage.getItem("theme") === "light") {
     document.body.classList.add("light");
   }
 
+  // Calculate experience
+  function calculateExperience(startDate) {
+    const start = new Date(startDate);
+    const now = new Date();
+    let years = now.getFullYear() - start.getFullYear();
+    let months = now.getMonth() - start.getMonth();
+    if (months < 0) {
+      years--;
+      months += 12;
+    }
+    return `${years} years ${months} months`;
+  }
+  document.getElementById("total-experience").textContent =
+    calculateExperience("2023-02-07");
+
+  // Mobile menu toggle
   const toggle = document.querySelector(".menu-toggle");
   const navLinks = document.querySelector(".nav-links");
-
   toggle.addEventListener("click", () => {
     navLinks.classList.toggle("active");
+  });
+  document.querySelectorAll(".nav-links a").forEach(link => {
+    link.addEventListener("click", () => {
+      navLinks.classList.remove("active");
+    });
   });
 </script>
 
 </body>
 </html>
-
