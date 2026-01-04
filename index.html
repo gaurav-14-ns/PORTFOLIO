@@ -59,25 +59,69 @@
     .chip { border:1px solid var(--border); padding:.25rem .5rem; border-radius:.5rem; color:var(--muted); }
     footer { border-top:1px solid var(--border); padding:2rem 0; color:var(--muted); }
 
-    /* Zoomable & swipeable images */
-    .project-gallery { display:flex; overflow-x:auto; gap:.5rem; scroll-snap-type:x mandatory; padding-bottom:.5rem; }
+    /* Project gallery modal/zoom */
+    .project-gallery {
+      display:flex;
+      overflow-x:auto;
+      gap:.5rem;
+      scroll-snap-type:x mandatory;
+      padding-bottom:.5rem;
+    }
     .project-gallery img {
       flex: 0 0 auto;
       max-height: 300px;
       border-radius:.5rem;
       border:1px solid var(--border);
       scroll-snap-align:start;
-      cursor: zoom-in;
-      transition: transform .3s ease;
+      cursor: pointer;
     }
-    .project-gallery img:active {
-      transform: scale(2);
-      z-index: 9999;
-      position: relative;
-    }
-    /* Hide scrollbar for cleaner look */
     .project-gallery::-webkit-scrollbar { display: none; }
     .project-gallery { -ms-overflow-style: none; scrollbar-width: none; }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      padding-top: 60px;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background-color: rgba(0,0,0,0.95);
+    }
+    .modal-content {
+      margin: auto;
+      display: block;
+      max-width: 90%;
+      max-height: 80%;
+      transition: transform 0.25s ease;
+      touch-action: pan-x pan-y;
+    }
+    .close {
+      position: absolute;
+      top: 20px;
+      right: 35px;
+      color: #fff;
+      font-size: 40px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .modal-nav .prev,
+    .modal-nav .next {
+      cursor: pointer;
+      position: absolute;
+      top: 50%;
+      width: auto;
+      padding: 16px;
+      color: white;
+      font-weight: bold;
+      font-size: 40px;
+      user-select: none;
+      transform: translateY(-50%);
+    }
+    .modal-nav .prev { left: 0; }
+    .modal-nav .next { right: 0; }
 
     @media(max-width:900px){ .hero{grid-template-columns:1fr;} .grid, .grid-2{grid-template-columns:1fr;} }
     @media(max-width:768px){ .menu-toggle{display:block;} .nav{flex-wrap:wrap; height:auto;} .nav-links{display:none; flex-direction:column; width:100%; margin-top:1rem;} .nav-links.active{display:flex;} }
@@ -204,23 +248,31 @@
   <section id="projects">
     <h2>Projects</h2>
 
-    <!-- Sales-Revenue Dashboard Project -->
     <div class="card">
       <h3>Sales-Revenue Dashboard with Forecasting</h3>
       <p>This project demonstrates a comprehensive sales data analysis workflow using Python, MySQL, Excel, and Power BI. The dashboard provides insights on sales trends, revenue forecasting, regional performance, and product analytics to help businesses make data-driven decisions.</p>
       <p><strong>Tools Used:</strong> Python, MySQL, Power BI, Excel</p>
 
-      <!-- Swipeable & zoomable images -->
+      <!-- Gallery -->
       <div class="project-gallery">
-        <img src="Sales-Revenue-Dashboard/images/page1.png" alt="Dashboard Page 1">
-        <img src="Sales-Revenue-Dashboard/images/page2.png" alt="Dashboard Page 2">
-        <img src="Sales-Revenue-Dashboard/images/page3.png" alt="Dashboard Page 3">
-        <img src="Sales-Revenue-Dashboard/images/mysql_table.png" alt="MySQL Table Screenshot">
-        <img src="Sales-Revenue-Dashboard/images/python_workflow.png" alt="Python Workflow Screenshot">
+        <img src="Sales-Revenue-Dashboard/images/page1.png" alt="Dashboard Page 1" onclick="openModal(0)">
+        <img src="Sales-Revenue-Dashboard/images/page2.png" alt="Dashboard Page 2" onclick="openModal(1)">
+        <img src="Sales-Revenue-Dashboard/images/page3.png" alt="Dashboard Page 3" onclick="openModal(2)">
+        <img src="Sales-Revenue-Dashboard/images/mysql_table.png" alt="MySQL Table Screenshot" onclick="openModal(3)">
       </div>
     </div>
 
-    <!-- Other projects placeholders -->
+    <!-- Modal -->
+    <div id="imgModal" class="modal">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <img class="modal-content" id="modalImg">
+      <div class="modal-nav">
+        <span class="prev" onclick="changeImage(-1)">&#10094;</span>
+        <span class="next" onclick="changeImage(1)">&#10095;</span>
+      </div>
+    </div>
+
+    <!-- Other projects -->
     <div class="grid" style="margin-top:1rem;">
       <div class="card">Project 2</div>
       <div class="card">Project 3</div>
@@ -284,6 +336,63 @@
   document.querySelectorAll(".nav-links a").forEach(link => {
     link.addEventListener("click", () => { navLinks.classList.remove("active"); });
   });
+
+  // Modal JS
+  let modalIndex = 0;
+  const modal = document.getElementById("imgModal");
+  const modalImg = document.getElementById("modalImg");
+  const images = document.querySelectorAll(".project-gallery img");
+
+  function openModal(index) {
+    modal.style.display = "block";
+    modalIndex = index;
+    modalImg.src = images[modalIndex].src;
+  }
+
+  function closeModal() {
+    modal.style.display = "none";
+    modalImg.style.transform = "scale(1)";
+  }
+
+  function changeImage(step) {
+    modalIndex += step;
+    if (modalIndex < 0) modalIndex = images.length -1;
+    if (modalIndex >= images.length) modalIndex = 0;
+    modalImg.src = images[modalIndex].src;
+    modalImg.style.transform = "scale(1)";
+  }
+
+  // Desktop click zoom
+  let scale = 1;
+  modalImg.addEventListener("click", function(){
+    scale = scale === 1 ? 2 : 1;
+    modalImg.style.transform = "scale(" + scale + ")";
+  });
+
+  // Pinch to zoom on mobile
+  let startDist = 0;
+  modalImg.addEventListener("touchstart", function(e){
+    if(e.touches.length === 2) {
+      startDist = Math.hypot(
+        e.touches[0].pageX - e.touches[1].pageX,
+        e.touches[0].pageY - e.touches[1].pageY
+      );
+    }
+  }, {passive:false});
+
+  modalImg.addEventListener("touchmove", function(e){
+    if(e.touches.length === 2) {
+      e.preventDefault();
+      const dist = Math.hypot(
+        e.touches[0].pageX - e.touches[1].pageX,
+        e.touches[0].pageY - e.touches[1].pageY
+      );
+      let newScale = (dist / startDist);
+      if(newScale < 1) newScale = 1;
+      if(newScale > 3) newScale = 3;
+      modalImg.style.transform = "scale(" + newScale + ")";
+    }
+  }, {passive:false});
 </script>
 
 </body>
