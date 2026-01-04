@@ -59,6 +59,19 @@
     .chip { border:1px solid var(--border); padding:.25rem .5rem; border-radius:.5rem; color:var(--muted); }
     footer { border-top:1px solid var(--border); padding:2rem 0; color:var(--muted); }
 
+    .zoomable {
+      cursor: zoom-in;
+      max-width: 100%;
+      border: 1px solid var(--border);
+      border-radius: .5rem;
+      transition: transform .3s ease;
+    }
+    .zoomable:active {
+      transform: scale(2);
+      z-index: 9999;
+      position: relative;
+    }
+
     @media(max-width:900px){ .hero{grid-template-columns:1fr;} .grid, .grid-2{grid-template-columns:1fr;} }
     @media(max-width:768px){ .menu-toggle{display:block;} .nav{flex-wrap:wrap; height:auto;} .nav-links{display:none; flex-direction:column; width:100%; margin-top:1rem;} .nav-links.active{display:flex;} }
   </style>
@@ -95,7 +108,7 @@
     <div>
       <span class="badge">Open to opportunities</span>
       <h1>Data-driven builder who turns messy spreadsheets and Python scripts into clean, useful products.</h1>
-      <p>Hi, I’m Gaurav from Assam. I work with Python, Power BI, MySQL and Excel automation.</p>
+      <p>Hi, I’m Gaurav Niwas Sarma. I work with Python, Power BI, MySQL and Excel automation.</p>
       <div class="cta">
         <a class="btn primary" href="#projects">View projects</a>
         <a class="btn" href="#contact">Contact me</a>
@@ -183,8 +196,30 @@
   <!-- PROJECTS SECTION -->
   <section id="projects">
     <h2>Projects</h2>
-    <div class="grid">
-      <div class="card">Project 1</div>
+
+    <!-- Sales-Revenue Dashboard Project -->
+    <div class="card">
+      <h3>Sales-Revenue Dashboard with Forecasting</h3>
+      <p>This project demonstrates a comprehensive sales data analysis workflow using Python, MySQL, Excel, and Power BI. The dashboard provides insights on sales trends, revenue forecasting, regional performance, and product analytics to help businesses make data-driven decisions.</p>
+
+      <p><strong>Tools Used:</strong> Python, MySQL, Power BI, Excel</p>
+
+      <!-- GitHub & Download -->
+      <div style="margin-top:.5rem;">
+        <a href="https://github.com/YourUsername/Sales-Revenue-Dashboard" target="_blank">View on GitHub</a> |
+        <a href="Sales-Revenue-Dashboard/power_bi/sales_dashboard.pbix" download>Download Power BI file</a>
+      </div>
+
+      <!-- Zoomable images -->
+      <div class="project-images" style="margin-top:1rem; display:flex; gap:.5rem; flex-wrap:wrap;">
+        <img src="Sales-Revenue-Dashboard/images/page1.png" class="zoomable" alt="Dashboard Page 1">
+        <img src="Sales-Revenue-Dashboard/images/page2.png" class="zoomable" alt="Dashboard Page 2">
+        <img src="Sales-Revenue-Dashboard/images/page3.png" class="zoomable" alt="Dashboard Page 3">
+      </div>
+    </div>
+
+    <!-- Other projects placeholders -->
+    <div class="grid" style="margin-top:1rem;">
       <div class="card">Project 2</div>
       <div class="card">Project 3</div>
     </div>
