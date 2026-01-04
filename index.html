@@ -1,398 +1,201 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Gaurav — Portfolio</title>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Gaurav — Portfolio</title>
 
-  <style>
-    :root {
-      --bg: #0f172a;
-      --panel: #111827;
-      --text: #e5e7eb;
-      --muted: #9ca3af;
-      --accent: #22c55e;
-      --accent-contrast: #052e17;
-      --card: #0b1223;
-      --border: #1f2937;
-    }
-    .light {
-      --bg: #f8fafc;
-      --panel: #ffffff;
-      --text: #0f172a;
-      --muted: #475569;
-      --accent: #0ea5e9;
-      --accent-contrast: #0b2a37;
-      --card: #ffffff;
-      --border: #e2e8f0;
-    }
-    html, body { margin:0; padding:0; scroll-behavior: smooth; }
-    body {
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-    }
-    a { color: var(--accent); text-decoration: none; }
-    a:hover { text-decoration: underline; }
-    .container { max-width:1080px; margin:0 auto; padding:0 1.25rem; }
-    header { position:sticky; top:0; z-index:50; backdrop-filter:blur(8px); background: color-mix(in oklab, var(--bg) 85%, transparent); border-bottom:1px solid var(--border);}
-    .nav { display:flex; align-items:center; justify-content:space-between; height:64px; }
-    .brand { display:flex; align-items:center; gap:.75rem; font-weight:700; }
-    .avatar { width:36px; height:36px; border-radius:50%; background:var(--accent); color:#fff; display:grid; place-items:center; font-weight:800; }
-    .nav-links { display:flex; gap:1rem; }
-    .nav-links a { color: var(--text); padding:.5rem .75rem; border-radius:.5rem; }
-    .nav-links a:hover { background: var(--panel); }
-    .tools { display:flex; gap:.5rem; }
-    .btn { border:1px solid var(--border); background:var(--panel); color: var(--text); padding:.5rem .75rem; border-radius:.5rem; cursor:pointer; }
-    .btn.primary { background: var(--accent); color:#fff; border:none; }
-    .menu-toggle { display:none; font-size:1.5rem; cursor:pointer; }
-    .hero { padding:4rem 0 2rem; display:grid; grid-template-columns:1.2fr .8fr; gap:2rem; align-items:center; }
-    .badge { background: var(--accent); color:#fff; padding:.25rem .5rem; border-radius:.375rem; font-size:.85rem; display:inline-block; margin-bottom:.75rem; }
-    section { padding:2rem 0; }
-    h2 { margin-bottom:1rem; }
-    .grid { display:grid; grid-template-columns: repeat(3, 1fr); gap:1rem; }
-    .grid-2 { grid-template-columns: repeat(2, 1fr); }
-    .card { background:var(--card); border:1px solid var(--border); border-radius:.75rem; padding:1rem; }
-    .meta { color:var(--muted); font-size:.9rem; }
-    .skills { display:flex; gap:.5rem; flex-wrap:wrap; }
-    .chip { border:1px solid var(--border); padding:.25rem .5rem; border-radius:.5rem; color:var(--muted); }
-    footer { border-top:1px solid var(--border); padding:2rem 0; color:var(--muted); }
+<style>
+:root{
+--bg:#0f172a;--panel:#111827;--text:#e5e7eb;--muted:#9ca3af;
+--accent:#22c55e;--card:#0b1223;--border:#1f2937;
+}
+.light{
+--bg:#f8fafc;--panel:#fff;--text:#0f172a;--muted:#475569;
+--accent:#0ea5e9;--card:#fff;--border:#e2e8f0;
+}
+html,body{margin:0;padding:0;scroll-behavior:smooth}
+body{
+font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;
+background:var(--bg);color:var(--text);line-height:1.6;
+}
+a{color:var(--accent);text-decoration:none}
+.container{max-width:1080px;margin:auto;padding:0 1.25rem}
+header{position:sticky;top:0;z-index:50;backdrop-filter:blur(8px);
+background:color-mix(in oklab,var(--bg) 85%,transparent);
+border-bottom:1px solid var(--border)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+.brand{display:flex;align-items:center;gap:.75rem;font-weight:700}
+.avatar{width:36px;height:36px;border-radius:50%;background:var(--accent);
+display:grid;place-items:center;color:#fff;font-weight:800}
+.nav-links{display:flex;gap:1rem}
+.nav-links a{color:var(--text);padding:.5rem .75rem;border-radius:.5rem}
+.nav-links a:hover{background:var(--panel)}
+.menu-toggle{display:none;font-size:1.5rem;cursor:pointer}
+.btn{border:1px solid var(--border);background:var(--panel);
+color:var(--text);padding:.5rem .75rem;border-radius:.5rem;cursor:pointer}
+.btn.primary{background:var(--accent);color:#fff;border:none}
+section{padding:2rem 0}
+.card{background:var(--card);border:1px solid var(--border);
+border-radius:.75rem;padding:1rem}
 
-    /* Project gallery modal/zoom */
-    .project-gallery {
-      display:flex;
-      overflow-x:auto;
-      gap:.5rem;
-      scroll-snap-type:x mandatory;
-      padding-bottom:.5rem;
-    }
-    .project-gallery img {
-      flex: 0 0 auto;
-      max-height: 300px;
-      border-radius:.5rem;
-      border:1px solid var(--border);
-      scroll-snap-align:start;
-      cursor: pointer;
-    }
-    .project-gallery::-webkit-scrollbar { display: none; }
-    .project-gallery { -ms-overflow-style: none; scrollbar-width: none; }
+/* --- Instagram-style gallery --- */
+.project-gallery{
+display:flex;gap:.75rem;overflow-x:auto;
+scroll-snap-type:x mandatory;
+-webkit-overflow-scrolling:touch;
+padding-bottom:.5rem
+}
+.project-gallery img{
+flex:0 0 auto;
+height:280px;
+border-radius:.5rem;
+border:1px solid var(--border);
+scroll-snap-align:center;
+cursor:pointer;
+user-select:none;
+}
+.project-gallery::-webkit-scrollbar{display:none}
+.swipe-hint{
+font-size:.85rem;
+color:var(--muted);
+margin-top:.25rem;
+text-align:right;
+}
 
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 9999;
-      padding-top: 60px;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      background-color: rgba(0,0,0,0.95);
-    }
-    .modal-content {
-      margin: auto;
-      display: block;
-      max-width: 90%;
-      max-height: 80%;
-      transition: transform 0.25s ease;
-      touch-action: pan-x pan-y;
-    }
-    .close {
-      position: absolute;
-      top: 20px;
-      right: 35px;
-      color: #fff;
-      font-size: 40px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    .modal-nav .prev,
-    .modal-nav .next {
-      cursor: pointer;
-      position: absolute;
-      top: 50%;
-      width: auto;
-      padding: 16px;
-      color: white;
-      font-weight: bold;
-      font-size: 40px;
-      user-select: none;
-      transform: translateY(-50%);
-    }
-    .modal-nav .prev { left: 0; }
-    .modal-nav .next { right: 0; }
+/* --- Modal --- */
+.modal{
+display:none;position:fixed;z-index:9999;
+inset:0;background:rgba(0,0,0,.95)
+}
+.modal img{
+margin:auto;display:block;
+max-width:90%;max-height:85%;
+transition:transform .2s ease;
+}
+.close{
+position:absolute;top:20px;right:30px;
+font-size:40px;color:#fff;cursor:pointer
+}
+.modal-nav span{
+position:absolute;top:50%;
+font-size:40px;color:#fff;
+cursor:pointer;user-select:none;
+transform:translateY(-50%)
+}
+.prev{left:10px}.next{right:10px}
 
-    @media(max-width:900px){ .hero{grid-template-columns:1fr;} .grid, .grid-2{grid-template-columns:1fr;} }
-    @media(max-width:768px){ .menu-toggle{display:block;} .nav{flex-wrap:wrap; height:auto;} .nav-links{display:none; flex-direction:column; width:100%; margin-top:1rem;} .nav-links.active{display:flex;} }
-  </style>
+@media(max-width:768px){
+.menu-toggle{display:block}
+.nav-links{display:none;flex-direction:column;width:100%;margin-top:1rem}
+.nav-links.active{display:flex}
+}
+</style>
 </head>
 
 <body>
 
 <header>
-  <div class="nav container">
-    <div class="brand">
-      <div class="avatar">G</div>
-      <div>Gaurav</div>
-    </div>
-    <div class="menu-toggle">☰</div>
-    <nav class="nav-links">
-      <a href="#about">About</a>
-      <a href="#skills">Skills</a>
-      <a href="#certifications">Certifications</a>
-      <a href="#internship">Internship</a>
-      <a href="#projects">Projects</a>
-      <a href="#experience">Experience</a>
-      <a href="#contact">Contact</a>
-    </nav>
-    <div class="tools">
-      <button class="btn" id="theme">Toggle theme</button>
-    </div>
-  </div>
+<div class="nav container">
+<div class="brand"><div class="avatar">G</div>Gaurav</div>
+<div class="menu-toggle">☰</div>
+<nav class="nav-links">
+<a href="#projects">Projects</a>
+<a href="#contact">Contact</a>
+</nav>
+<button class="btn" id="theme">Toggle theme</button>
+</div>
 </header>
 
 <main class="container">
 
-  <!-- HERO SECTION -->
-  <section class="hero">
-    <div>
-      <span class="badge">Open to opportunities</span>
-      <h1>Data-driven builder who turns messy spreadsheets and Python scripts into clean, useful products.</h1>
-      <p>Hi, I’m Gaurav Niwas Sarma. I work with Python, Power BI, MySQL and Excel automation.</p>
-      <div class="cta">
-        <a class="btn primary" href="#projects">View projects</a>
-        <a class="btn" href="#contact">Contact me</a>
-      </div>
-      <div style="margin-top:.75rem;">
-        <a href="assets/Gaurav_Resume.pdf" download>Download resume (PDF)</a>
-      </div>
-    </div>
-  </section>
+<section id="projects">
+<h2>Sales-Revenue Dashboard</h2>
+<div class="card">
+<p>End-to-end sales analytics using Python, MySQL, Excel & Power BI.</p>
 
-  <!-- ABOUT SECTION -->
-  <section id="about">
-    <h2>About</h2>
-    <div class="card">
-      <p>I focus on practical, example-driven data work and automation.</p>
-      <p>Total Experience: <strong><span id="total-experience"></span></strong></p>
-    </div>
-  </section>
-
-  <!-- SKILLS SECTION -->
-  <section id="skills">
-    <h2>Skills</h2>
-    <div class="skills">
-      <span class="chip">Python</span>
-      <span class="chip">MySQL</span>
-      <span class="chip">Power BI</span>
-      <span class="chip">MS Excel</span>
-      <span class="chip">AutoCAD</span>
-      <span class="chip">Primavera</span>
-      <span class="chip">MX Road</span>
-      <span class="chip">ESurvey CADD</span>
-    </div>
-  </section>
-
-  <!-- CERTIFICATIONS SECTION -->
-  <section id="certifications">
-    <h2>Certifications</h2>
-    <div class="grid grid-2">
-      <div class="card">
-        <h3>Data Analytics</h3>
-        <div style="margin-top:.5rem;">
-          <a href="assets/Data_Analytics_Certificate.pdf" download>Download certificate (PDF)</a>
-        </div>
-      </div>
-      <div class="card">
-        <h3>AutoCAD</h3>
-        <div style="margin-top:.5rem;">
-          <a href="assets/AutoCAD_Certificate.pdf" download>Download certificate (PDF)</a>
-        </div>
-      </div>
-      <div class="card">
-        <h3>Primavera</h3>
-        <div style="margin-top:.5rem;">
-          <a href="assets/Primavera_Certificate.pdf" download>Download certificate (PDF)</a>
-        </div>
-      </div>
-      <div class="card">
-        <h3>ESurvey CADD</h3>
-        <div style="margin-top:.5rem;">
-          <a href="assets/ESurvey_CADD_Certificate.pdf" download>Download certificate (PDF)</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- INTERNSHIP SECTION -->
-  <section id="internship">
-    <h2>Internship</h2>
-    <div class="grid grid-2">
-      <div class="card">
-        <h3>APWD</h3>
-        <div style="margin-top:.5rem;">
-          <a href="assets/APWD.pdf" download>Download internship certificate (PDF)</a>
-        </div>
-      </div>
-      <div class="card">
-        <h3>Adani</h3>
-        <div style="margin-top:.5rem;">
-          <a href="assets/Adani_Internship.pdf" download>Download internship certificate (PDF)</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- PROJECTS SECTION -->
-  <section id="projects">
-    <h2>Projects</h2>
-
-    <div class="card">
-      <h3>Sales-Revenue Dashboard with Forecasting</h3>
-      <p>This project demonstrates a comprehensive sales data analysis workflow using Python, MySQL, Excel, and Power BI. The dashboard provides insights on sales trends, revenue forecasting, regional performance, and product analytics to help businesses make data-driven decisions.</p>
-      <p><strong>Tools Used:</strong> Python, MySQL, Power BI, Excel</p>
-
-      <!-- Gallery -->
-      <div class="project-gallery">
-        <img src="Sales-Revenue-Dashboard/images/page1.png" alt="Dashboard Page 1" onclick="openModal(0)">
-        <img src="Sales-Revenue-Dashboard/images/page2.png" alt="Dashboard Page 2" onclick="openModal(1)">
-        <img src="Sales-Revenue-Dashboard/images/page3.png" alt="Dashboard Page 3" onclick="openModal(2)">
-        <img src="Sales-Revenue-Dashboard/images/mysql_table.png" alt="MySQL Table Screenshot" onclick="openModal(3)">
-      </div>
-    </div>
-
-    <!-- Modal -->
-    <div id="imgModal" class="modal">
-      <span class="close" onclick="closeModal()">&times;</span>
-      <img class="modal-content" id="modalImg">
-      <div class="modal-nav">
-        <span class="prev" onclick="changeImage(-1)">&#10094;</span>
-        <span class="next" onclick="changeImage(1)">&#10095;</span>
-      </div>
-    </div>
-
-    <!-- Other projects -->
-    <div class="grid" style="margin-top:1rem;">
-      <div class="card">Project 2</div>
-      <div class="card">Project 3</div>
-    </div>
-  </section>
-
-  <!-- EXPERIENCE SECTION -->
-  <section id="experience">
-    <h2>Experience</h2>
-    <div class="grid grid-2">
-      <div class="card">
-        <h3>Project Engineer — NEDFi</h3>
-        <p class="meta">May 2024 – Present</p>
-      </div>
-      <div class="card">
-        <h3>Assistant Engineer — Alliance Engineers & Consultants</h3>
-        <p class="meta">Feb 2023 – Apr 2024</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACT SECTION -->
-  <section id="contact">
-    <h2>Contact</h2>
-    <div class="card">
-      <p>Email: <a href="mailto:gauravniwassarma101@gmail.com">gauravniwassarma101@gmail.com</a></p>
-    </div>
-  </section>
+<div class="project-gallery">
+<img src="Sales-Revenue-Dashboard/images/page1.png" onclick="openModal(0)">
+<img src="Sales-Revenue-Dashboard/images/page2.png" onclick="openModal(1)">
+<img src="Sales-Revenue-Dashboard/images/page3.png" onclick="openModal(2)">
+<img src="Sales-Revenue-Dashboard/images/mysql_table.png" onclick="openModal(3)">
+</div>
+<div class="swipe-hint">swipe to see more →</div>
+</div>
+</section>
 
 </main>
 
-<footer>
-  <div class="container">
-    © <span id="year"></span> Gaurav Niwas Sarma
-  </div>
-</footer>
+<!-- Modal -->
+<div id="imgModal" class="modal">
+<span class="close" onclick="closeModal()">&times;</span>
+<span class="modal-nav prev" onclick="changeImage(-1)">&#10094;</span>
+<img id="modalImg">
+<span class="modal-nav next" onclick="changeImage(1)">&#10095;</span>
+</div>
 
 <script>
-  document.getElementById("year").textContent = new Date().getFullYear();
+const themeBtn=document.getElementById("theme");
+themeBtn.onclick=()=>document.body.classList.toggle("light");
 
-  const themeBtn = document.getElementById("theme");
-  themeBtn.addEventListener("click", () => {
-    document.body.classList.toggle("light");
-    localStorage.setItem("theme", document.body.classList.contains("light") ? "light" : "dark");
-  });
-  if (localStorage.getItem("theme") === "light") { document.body.classList.add("light"); }
+const menu=document.querySelector(".menu-toggle");
+const nav=document.querySelector(".nav-links");
+menu.onclick=()=>nav.classList.toggle("active");
 
-  function calculateExperience(startDate) {
-    const start = new Date(startDate);
-    const now = new Date();
-    let years = now.getFullYear() - start.getFullYear();
-    let months = now.getMonth() - start.getMonth();
-    if (months < 0) { years--; months +=12; }
-    return `${years} years ${months} months`;
-  }
-  document.getElementById("total-experience").textContent = calculateExperience("2023-02-07");
+const images=document.querySelectorAll(".project-gallery img");
+const modal=document.getElementById("imgModal");
+const modalImg=document.getElementById("modalImg");
+let index=0,scale=1;
 
-  const toggle = document.querySelector(".menu-toggle");
-  const navLinks = document.querySelector(".nav-links");
-  toggle.addEventListener("click", () => { navLinks.classList.toggle("active"); });
-  document.querySelectorAll(".nav-links a").forEach(link => {
-    link.addEventListener("click", () => { navLinks.classList.remove("active"); });
-  });
+function openModal(i){
+index=i;scale=1;
+modal.style.display="block";
+modalImg.src=images[index].src;
+modalImg.style.transform="scale(1)";
+}
+function closeModal(){modal.style.display="none"}
+function changeImage(step){
+index=(index+step+images.length)%images.length;
+scale=1;
+modalImg.src=images[index].src;
+modalImg.style.transform="scale(1)";
+}
 
-  // Modal JS
-  let modalIndex = 0;
-  const modal = document.getElementById("imgModal");
-  const modalImg = document.getElementById("modalImg");
-  const images = document.querySelectorAll(".project-gallery img");
+/* desktop zoom */
+modalImg.onclick=()=>{
+scale=scale===1?2:1;
+modalImg.style.transform=`scale(${scale})`;
+};
 
-  function openModal(index) {
-    modal.style.display = "block";
-    modalIndex = index;
-    modalImg.src = images[modalIndex].src;
-  }
+/* wheel zoom */
+modalImg.onwheel=e=>{
+e.preventDefault();
+scale+=e.deltaY*-0.001;
+scale=Math.min(Math.max(1,scale),3);
+modalImg.style.transform=`scale(${scale})`;
+};
 
-  function closeModal() {
-    modal.style.display = "none";
-    modalImg.style.transform = "scale(1)";
-  }
-
-  function changeImage(step) {
-    modalIndex += step;
-    if (modalIndex < 0) modalIndex = images.length -1;
-    if (modalIndex >= images.length) modalIndex = 0;
-    modalImg.src = images[modalIndex].src;
-    modalImg.style.transform = "scale(1)";
-  }
-
-  // Desktop click zoom
-  let scale = 1;
-  modalImg.addEventListener("click", function(){
-    scale = scale === 1 ? 2 : 1;
-    modalImg.style.transform = "scale(" + scale + ")";
-  });
-
-  // Pinch to zoom on mobile
-  let startDist = 0;
-  modalImg.addEventListener("touchstart", function(e){
-    if(e.touches.length === 2) {
-      startDist = Math.hypot(
-        e.touches[0].pageX - e.touches[1].pageX,
-        e.touches[0].pageY - e.touches[1].pageY
-      );
-    }
-  }, {passive:false});
-
-  modalImg.addEventListener("touchmove", function(e){
-    if(e.touches.length === 2) {
-      e.preventDefault();
-      const dist = Math.hypot(
-        e.touches[0].pageX - e.touches[1].pageX,
-        e.touches[0].pageY - e.touches[1].pageY
-      );
-      let newScale = (dist / startDist);
-      if(newScale < 1) newScale = 1;
-      if(newScale > 3) newScale = 3;
-      modalImg.style.transform = "scale(" + newScale + ")";
-    }
-  }, {passive:false});
+/* mobile pinch */
+let start=0;
+modalImg.addEventListener("touchstart",e=>{
+if(e.touches.length===2){
+start=Math.hypot(
+e.touches[0].pageX-e.touches[1].pageX,
+e.touches[0].pageY-e.touches[1].pageY
+);
+}
+},{passive:false});
+modalImg.addEventListener("touchmove",e=>{
+if(e.touches.length===2){
+e.preventDefault();
+let dist=Math.hypot(
+e.touches[0].pageX-e.touches[1].pageX,
+e.touches[0].pageY-e.touches[1].pageY
+);
+scale=Math.min(Math.max(dist/start,1),3);
+modalImg.style.transform=`scale(${scale})`;
+}
+},{passive:false});
 </script>
 
 </body>
