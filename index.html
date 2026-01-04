@@ -59,18 +59,25 @@
     .chip { border:1px solid var(--border); padding:.25rem .5rem; border-radius:.5rem; color:var(--muted); }
     footer { border-top:1px solid var(--border); padding:2rem 0; color:var(--muted); }
 
-    .zoomable {
+    /* Zoomable & swipeable images */
+    .project-gallery { display:flex; overflow-x:auto; gap:.5rem; scroll-snap-type:x mandatory; padding-bottom:.5rem; }
+    .project-gallery img {
+      flex: 0 0 auto;
+      max-height: 300px;
+      border-radius:.5rem;
+      border:1px solid var(--border);
+      scroll-snap-align:start;
       cursor: zoom-in;
-      max-width: 100%;
-      border: 1px solid var(--border);
-      border-radius: .5rem;
       transition: transform .3s ease;
     }
-    .zoomable:active {
+    .project-gallery img:active {
       transform: scale(2);
       z-index: 9999;
       position: relative;
     }
+    /* Hide scrollbar for cleaner look */
+    .project-gallery::-webkit-scrollbar { display: none; }
+    .project-gallery { -ms-overflow-style: none; scrollbar-width: none; }
 
     @media(max-width:900px){ .hero{grid-template-columns:1fr;} .grid, .grid-2{grid-template-columns:1fr;} }
     @media(max-width:768px){ .menu-toggle{display:block;} .nav{flex-wrap:wrap; height:auto;} .nav-links{display:none; flex-direction:column; width:100%; margin-top:1rem;} .nav-links.active{display:flex;} }
@@ -201,14 +208,15 @@
     <div class="card">
       <h3>Sales-Revenue Dashboard with Forecasting</h3>
       <p>This project demonstrates a comprehensive sales data analysis workflow using Python, MySQL, Excel, and Power BI. The dashboard provides insights on sales trends, revenue forecasting, regional performance, and product analytics to help businesses make data-driven decisions.</p>
-
       <p><strong>Tools Used:</strong> Python, MySQL, Power BI, Excel</p>
 
-      <!-- Zoomable images -->
-      <div class="project-images" style="margin-top:1rem; display:flex; gap:.5rem; flex-wrap:wrap;">
-        <img src="Sales-Revenue-Dashboard/images/page1.png" class="zoomable" alt="Dashboard Page 1">
-        <img src="Sales-Revenue-Dashboard/images/page2.png" class="zoomable" alt="Dashboard Page 2">
-        <img src="Sales-Revenue-Dashboard/images/page3.png" class="zoomable" alt="Dashboard Page 3">
+      <!-- Swipeable & zoomable images -->
+      <div class="project-gallery">
+        <img src="Sales-Revenue-Dashboard/images/page1.png" alt="Dashboard Page 1">
+        <img src="Sales-Revenue-Dashboard/images/page2.png" alt="Dashboard Page 2">
+        <img src="Sales-Revenue-Dashboard/images/page3.png" alt="Dashboard Page 3">
+        <img src="Sales-Revenue-Dashboard/images/mysql_table.png" alt="MySQL Table Screenshot">
+        <img src="Sales-Revenue-Dashboard/images/python_workflow.png" alt="Python Workflow Screenshot">
       </div>
     </div>
 
@@ -280,5 +288,3 @@
 
 </body>
 </html>
-
-
