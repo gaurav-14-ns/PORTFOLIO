@@ -31,7 +31,7 @@ h2{margin-bottom:1rem}
 background:var(--card);
 border:1px solid var(--border);
 border-radius:.75rem;
-padding:1rem;
+padding:1.25rem;
 }
 
 /* ===== HEADER ===== */
@@ -61,12 +61,16 @@ cursor:pointer;
 }
 
 /* ===== HERO ===== */
-.hero{
-padding:4rem 0 2rem;
-}
-.hero h1{font-size:2rem;max-width:700px}
+.hero{padding:4rem 0 2rem}
+.hero h1{font-size:2rem;max-width:720px}
 
-/* ===== GALLERY ===== */
+/* ===== PROJECTS ===== */
+.projects-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:1.25rem;
+}
+
 .project-gallery{
 display:flex;gap:.75rem;
 overflow-x:auto;
@@ -76,19 +80,15 @@ padding-bottom:.5rem;
 }
 .project-gallery img{
 flex:0 0 auto;
-height:280px;
+height:260px;
 border-radius:.5rem;
 border:1px solid var(--border);
 scroll-snap-align:center;
 cursor:pointer;
-user-select:none;
 }
 .project-gallery::-webkit-scrollbar{display:none}
 
-.swipe-hint{
-font-size:.85rem;color:var(--muted);
-text-align:right;margin-top:.25rem;
-}
+.swipe-hint{font-size:.85rem;color:var(--muted);text-align:right}
 
 /* ===== MODAL ===== */
 .modal{
@@ -96,7 +96,6 @@ display:none;
 position:fixed;inset:0;
 background:rgba(0,0,0,.95);
 z-index:9999;
-touch-action:none;
 }
 .modal img{
 margin:auto;display:block;
@@ -108,24 +107,18 @@ position:absolute;top:20px;right:30px;
 font-size:40px;color:#fff;cursor:pointer;
 }
 .modal-nav span{
-position:absolute;top:50%;
-transform:translateY(-50%);
-font-size:40px;color:#fff;
-cursor:pointer;user-select:none;
+position:absolute;top:50%;transform:translateY(-50%);
+font-size:40px;color:#fff;cursor:pointer;
 }
-.prev{left:15px}
-.next{right:15px}
+.prev{left:15px}.next{right:15px}
 
 /* ===== MOBILE ===== */
 @media(max-width:768px){
 .menu-toggle{display:block}
 .nav-links{
-display:none;
-position:absolute;top:64px;right:1rem;
-flex-direction:column;
-background:var(--panel);
-padding:1rem;
-border-radius:.5rem;
+display:none;position:absolute;top:64px;right:1rem;
+flex-direction:column;background:var(--panel);
+padding:1rem;border-radius:.5rem;
 border:1px solid var(--border);
 }
 .nav-links.active{display:flex}
@@ -135,7 +128,6 @@ border:1px solid var(--border);
 </head>
 
 <body>
-
 <header>
 <div class="nav container">
 <div class="brand"><div class="avatar">G</div>Gaurav</div>
@@ -152,51 +144,50 @@ border:1px solid var(--border);
 <main class="container">
 
 <section class="hero">
-<h1>Data-driven engineer building end-to-end analytics pipelines and dashboards.</h1>
+<h1>Data‑driven engineer building end‑to‑end analytics pipelines and dashboards.</h1>
 </section>
 
 <section id="about">
 <h2>About</h2>
 <div class="card">
-<p>
-I work across Python, MySQL, Excel and Power BI to transform raw data into
-clear business insights and decision-ready dashboards.
-</p>
+<p>I work across Python, MySQL, Excel and Power BI to transform raw data into clear business insights and decision‑ready dashboards.</p>
 </div>
 </section>
 
 <section id="projects">
-<h2>Sales-Revenue Dashboard</h2>
-<div class="card">
-<p>
-End-to-end sales analytics covering ingestion, modeling and interactive reporting.
-</p>
-<p><strong>Tools:</strong> Python · MySQL · Power BI · Excel</p>
+<h2>Projects</h2>
+<div class="projects-grid">
 
+<div class="card">
+<h3>Sales Revenue Dashboard</h3>
+<p>End‑to‑end sales analytics covering ingestion, modeling and reporting.</p>
+<p><strong>Tools:</strong> Python · MySQL · Power BI · Excel</p>
 <div class="project-gallery">
 <img src="Sales-Revenue-Dashboard/images/page1.png" onclick="openModal(0)">
 <img src="Sales-Revenue-Dashboard/images/page2.png" onclick="openModal(1)">
 <img src="Sales-Revenue-Dashboard/images/page3.png" onclick="openModal(2)">
 <img src="Sales-Revenue-Dashboard/images/mysql_table.png" onclick="openModal(3)">
 </div>
-<div class="swipe-hint">swipe to see more →</div>
+<div class="swipe-hint">swipe →</div>
+</div>
+
+<div class="card">
+<h3>Upcoming Project</h3>
+<p>Space reserved for your next analytics or automation build.</p>
+</div>
+
 </div>
 </section>
 
 <section id="contact">
 <h2>Contact</h2>
 <div class="card">
-<p>Email:
-<a href="mailto:gauravniwassarma101@gmail.com">
-gauravniwassarma101@gmail.com
-</a>
-</p>
+<p>Email: <a href="mailto:gauravniwassarma101@gmail.com">gauravniwassarma101@gmail.com</a></p>
 </div>
 </section>
 
 </main>
 
-<!-- MODAL -->
 <div id="imgModal" class="modal">
 <span class="close" onclick="closeModal()">&times;</span>
 <span class="modal-nav prev" onclick="changeImage(-1)">&#10094;</span>
@@ -215,35 +206,12 @@ menu.onclick=()=>nav.classList.toggle("active");
 const images=document.querySelectorAll(".project-gallery img");
 const modal=document.getElementById("imgModal");
 const modalImg=document.getElementById("modalImg");
-
 let index=0,scale=1;
 
-function openModal(i){
-index=i;scale=1;
-modal.style.display="block";
-document.body.style.overflow="hidden";
-modalImg.src=images[index].src;
-modalImg.style.transform="scale(1)";
-}
-
-function closeModal(){
-modal.style.display="none";
-document.body.style.overflow="";
-}
-
-function changeImage(step){
-index=(index+step+images.length)%images.length;
-scale=1;
-modalImg.src=images[index].src;
-modalImg.style.transform="scale(1)";
-}
-
-/* tap / click zoom */
-modalImg.onclick=()=>{
-scale=scale===1?2:1;
-modalImg.style.transform=`scale(${scale})`;
-};
+function openModal(i){index=i;scale=1;modal.style.display="block";document.body.style.overflow="hidden";modalImg.src=images[index].src;}
+function closeModal(){modal.style.display="none";document.body.style.overflow="";}
+function changeImage(step){index=(index+step+images.length)%images.length;modalImg.src=images[index].src;}
+modalImg.onclick=()=>{scale=scale===1?2:1;modalImg.style.transform=`scale(${scale})`;};
 </script>
-
 </body>
 </html>
