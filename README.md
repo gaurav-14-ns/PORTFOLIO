@@ -85,7 +85,7 @@ I focus on **practical analytics solutions** that support real-world decision-ma
 ## 🔗 Connect With Me
 
 - 🌐 **Portfolio Website:** https://gaurav-14-ns.github.io/PORTFOLIO/
-- 💼 **LinkedIn:** https://www.linkedin.com/
+- 💼 **LinkedIn:** https://www.linkedin.com/in/gns7cr
 - 💻 **GitHub:** https://github.com/gaurav-14-ns
 - 📧 **Email:** gauravniwassarma101@gmail.com  
 
