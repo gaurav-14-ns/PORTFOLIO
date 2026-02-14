@@ -128,7 +128,6 @@
       inset: 0;
       z-index: 9999;
       background: rgba(0,0,0,0.9);
-      display: flex;
       align-items: center;
       justify-content: center;
     }
@@ -552,7 +551,16 @@ accordionHeaders.forEach(header => {
   });
 });
 </script>
-
+  <!-- Fullscreen Image Modal -->
+<div id="imgModal" class="modal">
+  <span class="close" onclick="closeModal()">&times;</span>
+  <img id="modalImg" class="modal-content" />
+  <div class="modal-nav">
+    <span class="prev" onclick="changeImage(-1)">&#10094;</span>
+    <span class="next" onclick="changeImage(1)">&#10095;</span>
+  </div>
+</div>
 
 </body>
 </html>
+
