@@ -7,13 +7,13 @@
 
 <style>
 :root{
-  --bg:#0f172a;--panel:#111827;--text:#e5e7eb;--muted:#9ca3af;
-  --accent:#22c55e;--card:#0b1223;--border:#1f2937;
+  --bg:#0f172a;--text:#e5e7eb;--muted:#9ca3af;
+  --card:#0b1223;--border:#1f2937;
 }
 html,body{margin:0;padding:0}
 body{
   font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;
-  background:var(--bg);color:var(--text);line-height:1.6;
+  background:var(--bg);color:var(--text);
 }
 .container{max-width:1080px;margin:auto;padding:0 1.25rem}
 section{padding:2rem 0}
@@ -29,28 +29,20 @@ h2{margin-bottom:1rem}
 /* ---------- ACCORDION ---------- */
 .accordion-item{border-bottom:1px solid var(--border)}
 .accordion-header{
-  width:100%;
-  background:none;
-  border:none;
-  padding:1rem;
-  font-size:1.05rem;
-  font-weight:600;
-  color:var(--text);
-  text-align:left;
-  cursor:pointer;
+  width:100%;background:none;border:none;
+  padding:1rem;font-size:1.05rem;
+  font-weight:600;color:var(--text);
+  text-align:left;cursor:pointer;
 }
 .accordion-body{
-  max-height:0;
-  overflow:hidden;
+  max-height:0;overflow:hidden;
   transition:max-height .3s ease;
   padding:0 1rem;
 }
 
 /* ---------- GALLERY ---------- */
 .project-gallery{
-  display:flex;
-  gap:.5rem;
-  overflow-x:auto;
+  display:flex;gap:.5rem;overflow-x:auto;
 }
 .project-gallery img{
   max-height:280px;
@@ -61,11 +53,9 @@ h2{margin-bottom:1rem}
 
 /* ---------- MODAL ---------- */
 .modal{
-  position:fixed;
-  inset:0;
+  position:fixed;inset:0;
   background:rgba(0,0,0,.95);
-  display:none;
-  z-index:9999;
+  display:none;z-index:9999;
 }
 .modal-content{
   height:100%;
@@ -73,7 +63,6 @@ h2{margin-bottom:1rem}
   align-items:center;
   justify-content:center;
   overflow:hidden;
-  position:relative;
 }
 .modal-track{
   display:flex;
@@ -81,7 +70,7 @@ h2{margin-bottom:1rem}
   transition:transform .35s ease;
 }
 .modal-slide{
-  min-width:100vw;
+  flex:0 0 100%;
   height:100%;
   display:flex;
   align-items:center;
@@ -96,22 +85,16 @@ h2{margin-bottom:1rem}
 
 /* Close */
 .close{
-  position:absolute;
-  top:16px;
-  right:20px;
-  font-size:36px;
-  color:#fff;
-  cursor:pointer;
-  z-index:10;
+  position:absolute;top:16px;right:20px;
+  font-size:36px;color:#fff;
+  cursor:pointer;z-index:10;
 }
 
 /* Desktop arrows */
 .nav-arrow{
-  position:absolute;
-  top:50%;
+  position:absolute;top:50%;
   transform:translateY(-50%);
-  font-size:48px;
-  color:#fff;
+  font-size:48px;color:#fff;
   cursor:pointer;
   padding:10px;
   user-select:none;
@@ -130,7 +113,6 @@ h2{margin-bottom:1rem}
 <body>
 
 <main class="container">
-
 <section id="projects">
 <h2>Projects</h2>
 
@@ -151,7 +133,7 @@ h2{margin-bottom:1rem}
 <div class="accordion-item">
 <button class="accordion-header">Pricing & Promotion Impact Simulator</button>
 <div class="accordion-body">
-<p>Scenario-based pricing and discount impact.</p>
+<p>Scenario-based pricing impact modeling.</p>
 <div class="project-gallery">
 <img src="Pricing-and-Promotion-Impact-Simulator/images/page1a.png">
 <img src="Pricing-and-Promotion-Impact-Simulator/images/page1b.png">
@@ -162,7 +144,6 @@ h2{margin-bottom:1rem}
 
 </div>
 </section>
-
 </main>
 
 <!-- MODAL -->
@@ -196,7 +177,9 @@ const prevBtn=document.getElementById("prev");
 const nextBtn=document.getElementById("next");
 
 let slides=[], index=0;
-let scale=1, startX=0, startY=0, dx=0, dy=0;
+let slideWidth=0;
+
+let scale=1, dx=0, dy=0;
 
 document.querySelectorAll(".project-gallery").forEach(gallery=>{
   const imgs=[...gallery.querySelectorAll("img")];
@@ -218,15 +201,19 @@ function openModal(images,start){
     track.appendChild(slide);
     enableZoom(img);
   });
-  update();
   modal.style.display="block";
+  slideWidth=modal.clientWidth;
+  update();
 }
 
 function update(){
-  track.style.transform=`translateX(-${index*window.innerWidth}px)`;
+  resetZoom();
+  track.style.transform=`translateX(-${index*slideWidth}px)`;
 }
 
-function closeModal(){modal.style.display="none"}
+function closeModal(){
+  modal.style.display="none";
+}
 
 prevBtn.onclick=()=>{if(index>0){index--;update()}};
 nextBtn.onclick=()=>{if(index<slides.length-1){index++;update()}};
@@ -241,9 +228,23 @@ document.onkeydown=e=>{
 modal.onclick=e=>{if(e.target===modal)closeModal()};
 closeBtn.onclick=closeModal;
 
+window.addEventListener("resize",()=>{
+  if(modal.style.display==="block"){
+    slideWidth=modal.clientWidth;
+    update();
+  }
+});
+
 /* ---------- ZOOM + PAN ---------- */
+function resetZoom(){
+  scale=1;dx=0;dy=0;
+  document.querySelectorAll(".modal-slide img").forEach(img=>{
+    img.style.transform="scale(1)";
+  });
+}
+
 function enableZoom(img){
-  let lastX=0,lastY=0;
+  let startX=0,startY=0;
   img.onwheel=e=>{
     e.preventDefault();
     scale+=e.deltaY*-0.001;
@@ -256,12 +257,11 @@ function enableZoom(img){
     startY=e.clientY-dy;
   };
   img.onpointermove=e=>{
-    if(e.pressure===0||scale===1)return;
+    if(scale===1)return;
     dx=e.clientX-startX;
     dy=e.clientY-startY;
     img.style.transform=`scale(${scale}) translate(${dx}px,${dy}px)`;
   };
-  img.onpointerup=()=>{};
 }
 </script>
 
