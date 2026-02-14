@@ -1,81 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Gaurav — Portfolio</title>
 
 <style>
 :root{
-  --bg:#0f172a;--text:#e5e7eb;--muted:#9ca3af;
+  --bg:#0f172a;--panel:#111827;--text:#e5e7eb;--muted:#9ca3af;
   --accent:#22c55e;--card:#0b1223;--border:#1f2937;
 }
-html,body{
-  margin:0;font-family:system-ui;background:var(--bg);color:var(--text);
+.light{
+  --bg:#f8fafc;--panel:#fff;--text:#0f172a;--muted:#475569;
+  --accent:#0ea5e9;--card:#fff;--border:#e2e8f0;
+}
+html,body{margin:0;padding:0}
+body{
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;
+  background:var(--bg);color:var(--text);line-height:1.6;
 }
 .container{max-width:1080px;margin:auto;padding:0 1.25rem}
 section{padding:2rem 0}
 h2{margin-bottom:1rem}
-.card{background:var(--card);border:1px solid var(--border);border-radius:.75rem;padding:1rem}
+a{color:var(--accent);text-decoration:none}
 
-/* Accordion */
+.card{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:.75rem;padding:1rem
+}
+
+header{
+  position:sticky;top:0;z-index:50;
+  backdrop-filter:blur(8px);
+  background:color-mix(in oklab,var(--bg) 85%,transparent);
+  border-bottom:1px solid var(--border)
+}
+.nav{display:flex;justify-content:space-between;align-items:center;height:64px}
+.menu-toggle{display:none;font-size:1.5rem;cursor:pointer}
+
+.nav-links{display:flex;gap:1rem}
+.nav-links a{color:var(--text);padding:.5rem;border-radius:.5rem}
+.nav-links a:hover{background:var(--panel)}
+
+@media(max-width:768px){
+  .menu-toggle{display:block}
+  .nav-links{display:none;flex-direction:column;width:100%}
+  .nav-links.active{display:flex}
+}
+
 .accordion-item{border-bottom:1px solid var(--border)}
 .accordion-header{
-  width:100%;background:none;border:none;padding:1rem;
-  font-size:1.05rem;color:var(--text);
-  display:flex;justify-content:space-between;
-  cursor:pointer
+  width:100%;background:none;border:none;
+  padding:1rem;font-size:1.05rem;font-weight:600;
+  color:var(--text);cursor:pointer;text-align:left;
 }
-.accordion-header::after{content:"▸";transition:.25s}
-.accordion-header.active::after{transform:rotate(90deg)}
-.accordion-body{max-height:0;overflow:hidden;transition:max-height .35s ease}
+.accordion-body{
+  max-height:0;overflow:hidden;
+  transition:max-height .3s ease;padding:0 1rem
+}
 
-/* Gallery */
 .project-gallery{
-  display:flex;gap:.5rem;overflow-x:auto;padding-bottom:.25rem
+  display:flex;gap:.5rem;overflow-x:auto;
+  scroll-snap-type:x mandatory
 }
 .project-gallery img{
-  max-height:260px;border-radius:.5rem;
+  max-height:280px;border-radius:.5rem;
   border:1px solid var(--border);
-  cursor:pointer
+  scroll-snap-align:start;cursor:pointer
 }
+.project-gallery::-webkit-scrollbar{display:none}
 
-/* Modal */
+.swipe-hint{font-size:.85rem;color:var(--muted);text-align:right}
+
+/* ===== MODAL ===== */
 .modal{
-  display:none;position:fixed;inset:0;
+  position:fixed;inset:0;
   background:rgba(0,0,0,.95);
-  z-index:9999;
-  touch-action:none;
+  display:none;z-index:9999;
 }
-.modal-inner{
-  width:100%;height:100%;
+.modal-track{
+  display:flex;height:100%;
+  overflow-x:auto;
+  scroll-snap-type:x mandatory;
+  -webkit-overflow-scrolling:touch;
+}
+.modal-track::-webkit-scrollbar{display:none}
+.modal-slide{
+  min-width:100%;height:100%;
   display:flex;align-items:center;justify-content:center;
-  overflow:hidden;
+  scroll-snap-align:center;
 }
-.modal img{
-  max-width:100%;
-  max-height:100%;
+.modal-slide img{
+  max-width:100%;max-height:100%;
   object-fit:contain;
-  transition:transform .25s ease;
+  touch-action:pan-x pan-y pinch-zoom;
 }
 .close{
   position:absolute;top:16px;right:20px;
-  font-size:34px;color:#fff;cursor:pointer;z-index:10
+  font-size:36px;color:#fff;cursor:pointer;z-index:10
 }
-
-/* Desktop arrows */
-.modal-nav span{
-  position:absolute;top:50%;transform:translateY(-50%);
-  font-size:48px;color:#fff;cursor:pointer;
-  padding:10px 16px;border-radius:50%;
-  background:rgba(0,0,0,.4)
-}
-.prev{left:20px}.next{right:20px}
-@media(max-width:768px){.modal-nav{display:none}}
 </style>
 </head>
 
 <body>
+
+<header>
+  <div class="nav container">
+    <strong>Gaurav</strong>
+    <div class="menu-toggle">☰</div>
+    <nav class="nav-links">
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
 
 <main class="container">
 
@@ -84,156 +122,92 @@ h2{margin-bottom:1rem}
 
 <div class="accordion">
 
-<!-- PROJECT 1 -->
-<div class="accordion-item">
-<button class="accordion-header">Sales Revenue Dashboard</button>
-<div class="accordion-body">
-<p>Python | MySQL | Power BI</p>
-<div class="project-gallery">
-<img src="Sales-Revenue-Dashboard/images/page1.png">
-<img src="Sales-Revenue-Dashboard/images/page2.png">
-<img src="Sales-Revenue-Dashboard/images/page3.png">
-</div>
-</div>
-</div>
-
-<!-- PROJECT 2 -->
 <div class="accordion-item">
 <button class="accordion-header">SaaS Revenue & Retention Analytics</button>
 <div class="accordion-body">
-<p>Python | MySQL | Power BI</p>
+<p>Lifecycle churn, retention cohorts, what-if revenue simulation.</p>
 <div class="project-gallery">
 <img src="SaaS-revenue-retention-analytics/images/page1_growth_command_center.png">
 <img src="SaaS-revenue-retention-analytics/images/page2_retention_intelligence.png">
 <img src="SaaS-revenue-retention-analytics/images/page3_retention_simulator.png">
 </div>
+<p class="swipe-hint">swipe →</p>
+</div>
+</div>
+
+<div class="accordion-item">
+<button class="accordion-header">Pricing & Promotion Simulator</button>
+<div class="accordion-body">
+<p>Scenario-based pricing & discount impact modeling.</p>
+<div class="project-gallery">
+<img src="Pricing-and-Promotion-Impact-Simulator/images/page1a.png">
+<img src="Pricing-and-Promotion-Impact-Simulator/images/page1b.png">
+<img src="Pricing-and-Promotion-Impact-Simulator/images/page1c.png">
+</div>
+<p class="swipe-hint">swipe →</p>
 </div>
 </div>
 
 </div>
 </section>
 
+<section id="contact">
+<h2>Contact</h2>
+<div class="card">
+<p>Email: <a href="mailto:gauravniwassarma101@gmail.com">gauravniwassarma101@gmail.com</a></p>
+<p>GitHub: <a href="https://github.com/gaurav-14-ns">github.com/gaurav-14-ns</a></p>
+</div>
+</section>
+
 </main>
 
-<!-- Modal -->
+<!-- MODAL -->
 <div id="imgModal" class="modal">
 <span class="close">&times;</span>
-<div class="modal-inner">
-<img id="modalImg">
-</div>
-<div class="modal-nav">
-<span class="prev">&#10094;</span>
-<span class="next">&#10095;</span>
-</div>
+<div class="modal-track" id="modalTrack"></div>
 </div>
 
 <script>
 /* Accordion */
 document.querySelectorAll(".accordion-header").forEach(h=>{
   h.onclick=()=>{
-    document.querySelectorAll(".accordion-header").forEach(x=>{
-      if(x!==h){x.classList.remove("active");x.nextElementSibling.style.maxHeight=null}
+    document.querySelectorAll(".accordion-body").forEach(b=>{
+      if(b!==h.nextElementSibling)b.style.maxHeight=null
     });
-    h.classList.toggle("active");
     const body=h.nextElementSibling;
-    body.style.maxHeight=h.classList.contains("active")?body.scrollHeight+"px":null;
+    body.style.maxHeight=body.style.maxHeight?null:body.scrollHeight+"px";
   };
 });
 
-/* Modal logic */
+/* Modal Gallery */
 const modal=document.getElementById("imgModal");
-const modalImg=document.getElementById("modalImg");
+const track=document.getElementById("modalTrack");
 const closeBtn=document.querySelector(".close");
-const prevBtn=document.querySelector(".prev");
-const nextBtn=document.querySelector(".next");
-
-let currentImages=[];
-let currentIndex=0;
-let scale=1;
-let startX=0,startY=0,startDist=0;
 
 document.querySelectorAll(".project-gallery").forEach(gallery=>{
   const imgs=[...gallery.querySelectorAll("img")];
   imgs.forEach((img,i)=>{
-    img.onclick=()=>{
-      currentImages=imgs.map(x=>x.src);
-      currentIndex=i;
-      openModal();
-    };
+    img.onclick=()=>openGallery(imgs.map(x=>x.src),i);
   });
 });
 
-function openModal(){
-  modalImg.src=currentImages[currentIndex];
+function openGallery(images,start){
+  track.innerHTML="";
+  images.forEach(src=>{
+    const slide=document.createElement("div");
+    slide.className="modal-slide";
+    const img=document.createElement("img");
+    img.src=src;
+    slide.appendChild(img);
+    track.appendChild(slide);
+  });
   modal.style.display="block";
-  resetZoom();
+  requestAnimationFrame(()=>track.scrollLeft=start*window.innerWidth);
 }
 
-function closeModal(){
-  modal.style.display="none";
-  resetZoom();
-}
-
-function change(step){
-  currentIndex=(currentIndex+step+currentImages.length)%currentImages.length;
-  modalImg.src=currentImages[currentIndex];
-  resetZoom();
-}
-
-function resetZoom(){
-  scale=1;
-  modalImg.style.transform="scale(1)";
-}
-
-/* Desktop controls */
-closeBtn.onclick=closeModal;
-prevBtn.onclick=()=>change(-1);
-nextBtn.onclick=()=>change(1);
-document.addEventListener("keydown",e=>{
-  if(e.key==="Escape")closeModal();
-  if(e.key==="ArrowLeft")change(-1);
-  if(e.key==="ArrowRight")change(1);
-});
-
-/* Touch swipe */
-modal.addEventListener("touchstart",e=>{
-  if(e.touches.length===1){
-    startX=e.touches[0].clientX;
-    startY=e.touches[0].clientY;
-  }
-  if(e.touches.length===2){
-    startDist=Math.hypot(
-      e.touches[0].clientX-e.touches[1].clientX,
-      e.touches[0].clientY-e.touches[1].clientY
-    );
-  }
-},{passive:false});
-
-modal.addEventListener("touchmove",e=>{
-  e.preventDefault();
-  if(e.touches.length===2){
-    const dist=Math.hypot(
-      e.touches[0].clientX-e.touches[1].clientX,
-      e.touches[0].clientY-e.touches[1].clientY
-    );
-    scale=Math.min(3,Math.max(1,scale*(dist/startDist)));
-    modalImg.style.transform=`scale(${scale})`;
-    startDist=dist;
-  }
-},{passive:false});
-
-modal.addEventListener("touchend",e=>{
-  if(scale>1) return;
-  const endX=e.changedTouches[0].clientX;
-  const diff=startX-endX;
-  if(Math.abs(diff)>60){
-    diff>0?change(1):change(-1);
-  }
-});
-
-modal.onclick=e=>{
-  if(e.target===modal)closeModal();
-};
+closeBtn.onclick=()=>modal.style.display="none";
+modal.onclick=e=>{if(e.target===modal)modal.style.display="none"};
+document.onkeydown=e=>{if(e.key==="Escape")modal.style.display="none"};
 </script>
 
 </body>
