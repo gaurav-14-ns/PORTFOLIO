@@ -12,7 +12,6 @@
       --text: #e5e7eb;
       --muted: #9ca3af;
       --accent: #22c55e;
-      --accent-contrast: #052e17;
       --card: #0b1223;
       --border: #1f2937;
     }
@@ -22,159 +21,78 @@
       --text: #0f172a;
       --muted: #475569;
       --accent: #0ea5e9;
-      --accent-contrast: #0b2a37;
       --card: #ffffff;
       --border: #e2e8f0;
     }
-    html, body { margin:0; padding:0; scroll-behavior: smooth; }
+    html, body { margin:0; padding:0; scroll-behavior:smooth; }
     body {
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
       background: var(--bg);
       color: var(--text);
       line-height: 1.6;
     }
-    a { color: var(--accent); text-decoration: none; }
-    a:hover { text-decoration: underline; }
+    a { color: var(--accent); text-decoration:none; }
     .container { max-width:1080px; margin:0 auto; padding:0 1.25rem; }
-    header { position:sticky; top:0; z-index:50; backdrop-filter:blur(8px); background: color-mix(in oklab, var(--bg) 85%, transparent); border-bottom:1px solid var(--border);}
-    .nav { display:flex; align-items:center; justify-content:space-between; height:64px; }
-    .brand { display:flex; align-items:center; gap:.75rem; font-weight:700; }
-    .avatar { width:36px; height:36px; border-radius:50%; background:var(--accent); color:#fff; display:grid; place-items:center; font-weight:800; }
+    header { position:sticky; top:0; z-index:50; backdrop-filter:blur(8px); border-bottom:1px solid var(--border); background:rgba(15,23,42,.9); }
+
+    .nav { display:flex; justify-content:space-between; align-items:center; height:64px; }
+    .brand { display:flex; gap:.75rem; font-weight:700; }
+    .avatar { width:36px; height:36px; border-radius:50%; background:var(--accent); display:grid; place-items:center; color:#fff; }
+
     .nav-links { display:flex; gap:1rem; }
-    .nav-links a { color: var(--text); padding:.5rem .75rem; border-radius:.5rem; }
-    .nav-links a:hover { background: var(--panel); }
-    .tools { display:flex; gap:.5rem; }
-    .btn { border:1px solid var(--border); background:var(--panel); color: var(--text); padding:.5rem .75rem; border-radius:.5rem; cursor:pointer; }
-    .btn.primary { background: var(--accent); color:#fff; border:none; }
+    .nav-links a { padding:.5rem .75rem; border-radius:.5rem; color:var(--text); }
+    .nav-links a:hover { background:var(--panel); }
+
     .menu-toggle { display:none; font-size:1.5rem; cursor:pointer; }
-    .hero { padding:4rem 0 2rem; display:grid; grid-template-columns:1.2fr .8fr; gap:2rem; align-items:center; }
-    .badge { background: var(--accent); color:#fff; padding:.25rem .5rem; border-radius:.375rem; font-size:.85rem; display:inline-block; margin-bottom:.75rem; }
+    .btn { padding:.5rem .75rem; border-radius:.5rem; border:1px solid var(--border); background:var(--panel); color:var(--text); cursor:pointer; }
+    .btn.primary { background:var(--accent); border:none; color:#fff; }
+
     section { padding:2rem 0; }
-    h2 { margin-bottom:1rem; }
-    .grid { display:grid; grid-template-columns: repeat(3, 1fr); gap:1rem; }
-    .grid-2 { grid-template-columns: repeat(2, 1fr); }
     .card { background:var(--card); border:1px solid var(--border); border-radius:.75rem; padding:1rem; }
-    .meta { color:var(--muted); font-size:.9rem; }
-    .skills { display:flex; gap:.5rem; flex-wrap:wrap; }
-    .chip { border:1px solid var(--border); padding:.25rem .5rem; border-radius:.5rem; color:var(--muted); }
-    footer { border-top:1px solid var(--border); padding:2rem 0; color:var(--muted); }
+    .skills { display:flex; flex-wrap:wrap; gap:.5rem; }
+    .chip { padding:.25rem .5rem; border-radius:.5rem; border:1px solid var(--border); }
 
-    .accordion {
-  max-width: 100%;
-}
-
-.accordion-item {
-  border-bottom: 1px solid var(--border);
-}
-
-.accordion-header {
-  width: 100%;
-  background: none;
-  border: none;
-  padding: 1rem;
-  text-align: left;
-  font-size: 1.05rem;
-  font-weight: 600;
-  color: var(--text);
-  cursor: pointer;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.accordion-header::after {
-  content: "▸";
-  transition: transform 0.25s ease;
-}
-
-.accordion-header.active::after {
-  transform: rotate(90deg);
-}
-
-.accordion-body {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.3s ease;
-  padding: 0 1rem;
-}
-
-.accordion-body p {
-  margin-top: .75rem;
-}
-
-    /* Project gallery modal/zoom */
-    .project-gallery {
-      display:flex;
-      overflow-x:auto;
-      gap:.5rem;
-      scroll-snap-type:x mandatory;
-      padding-bottom:.5rem;
+    /* ACCORDION */
+    .accordion-item { border-bottom:1px solid var(--border); }
+    .accordion-header {
+      width:100%; background:none; border:none; padding:1rem;
+      font-size:1.05rem; font-weight:600; color:var(--text);
+      display:flex; justify-content:space-between; cursor:pointer;
     }
+    .accordion-header::after { content:"▸"; transition:.25s; }
+    .accordion-header.active::after { transform:rotate(90deg); }
+    .accordion-body { max-height:0; overflow:hidden; transition:max-height .3s ease; padding:0 1rem; }
+
+    /* GALLERY */
+    .project-gallery { display:flex; gap:.5rem; overflow-x:auto; }
     .project-gallery img {
-      flex: 0 0 auto;
-      max-height: 300px;
-      border-radius:.5rem;
-      border:1px solid var(--border);
-      scroll-snap-align:start;
-      cursor: pointer;
+      max-height:280px; border-radius:.5rem;
+      border:1px solid var(--border); cursor:pointer;
     }
-    .project-gallery::-webkit-scrollbar { display: none; }
-    .project-gallery { -ms-overflow-style: none; scrollbar-width: none; }
 
-    /* Fullscreen image modal (simple & clean) */
+    /* MODAL */
     .modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      z-index: 9999;
-      background: rgba(0,0,0,0.9);
-      align-items: center;
-      justify-content: center;
+      display:none; position:fixed; inset:0;
+      background:rgba(0,0,0,.9); z-index:9999;
+      align-items:center; justify-content:center;
     }
-
-    .modal-content {
-      max-width: 95vw;
-      max-height: 90vh;
-      object-fit: contain;
-      border-radius: 8px;
-    }
-
+    .modal img { max-width:95vw; max-height:90vh; object-fit:contain; }
     .close {
-      position: absolute;
-      top: 20px;
-      right: 35px;
-      color: #fff;
-      font-size: 40px;
-      font-weight: bold;
-      cursor: pointer;
+      position:absolute; top:20px; right:30px;
+      font-size:40px; color:#fff; cursor:pointer;
     }
-    .modal-nav .prev,
-    .modal-nav .next {
-      cursor: pointer;
-      position: absolute;
-      top: 50%;
-      width: auto;
-      padding: 16px;
-      color: white;
-      font-weight: bold;  
-      font-size: 40px;
-      user-select: none;
-      transform: translateY(-50%);
+    .modal-nav span {
+      position:absolute; top:50%; font-size:40px;
+      color:#fff; cursor:pointer; user-select:none;
     }
-    .modal-nav .prev { left: 0; }
-    .modal-nav .next { right: 0; }
+    .prev { left:20px; }
+    .next { right:20px; }
 
-    @media(max-width:900px){ .hero{grid-template-columns:1fr;} .grid, .grid-2{grid-template-columns:1fr;} }
-    @media(max-width:768px){ .menu-toggle{display:block;} .nav{flex-wrap:wrap; height:auto;} .nav-links{display:none; flex-direction:column; width:100%; margin-top:1rem;} .nav-links.active{display:flex;} }
-
-    .swipe-hint {
-      margin-top: .35rem;
-      font-size: .85rem;
-      color: var(--muted);
-      text-align: right;
-      user-select: none;
+    @media(max-width:768px){
+      .menu-toggle{display:block;}
+      .nav-links{display:none; flex-direction:column;}
+      .nav-links.active{display:flex;}
     }
-
   </style>
 </head>
 
@@ -182,365 +100,102 @@
 
 <header>
   <div class="nav container">
-    <div class="brand">
-      <div class="avatar">G</div>
-      <div>Gaurav</div>
-    </div>
+    <div class="brand"><div class="avatar">G</div>Gaurav</div>
     <div class="menu-toggle">☰</div>
     <nav class="nav-links">
-      <a href="#about">About</a>
-      <a href="#skills">Skills</a>
-      <a href="#certifications">Certifications</a>
-      <a href="#internship">Internship</a>
       <a href="#projects">Projects</a>
-      <a href="#experience">Experience</a>
       <a href="#contact">Contact</a>
     </nav>
-    <div class="tools">
-      <button class="btn" id="theme">Toggle theme</button>
-    </div>
+    <button class="btn" id="theme">Toggle theme</button>
   </div>
 </header>
 
 <main class="container">
 
-  <!-- HERO SECTION -->
-  <section class="hero">
-    <div>
-      <span class="badge">Open to opportunities</span>
-      <h3>Hi, I’m Gaurav Niwas Sarma. Data-driven builder who turns messy spreadsheets and Python scripts into clean, useful products.</h3>
-      <div class="cta">
-        <a class="btn primary" href="#projects">View projects</a>
-        <a class="btn" href="#contact">Contact me</a>
-      </div>
-      <div style="margin-top:.75rem;">
-        <a href="assets/Gaurav_Resume.pdf" download>Download resume (PDF)</a>
-      </div>
-    </div>
-  </section>
+<section id="projects">
+<h2>Projects</h2>
 
-  <!-- ABOUT SECTION -->
-  <section id="about">
-    <h2>About</h2>
-    <div class="card">
-      <p>I focus on practical, example-driven data work and automation.</p>
-      <p>Total Experience: <strong><span id="total-experience"></span></strong></p>
-    </div>
-  </section>
+<div class="accordion">
 
-  <!-- SKILLS SECTION -->
-  <section id="skills">
-    <h2>Skills</h2>
-    <div class="skills">
-      <span class="chip">Python</span>
-      <span class="chip">MySQL</span>
-      <span class="chip">Power BI</span>
-      <span class="chip">MS Excel</span>
-      <span class="chip">Machine Learning</span>
-      <span class="chip">AutoCAD</span>
-      <span class="chip">Primavera</span>
-      <span class="chip">MX Road</span>
-      <span class="chip">ESurvey CADD</span>
-    </div>
-  </section>
+<div class="accordion-item">
+<button class="accordion-header">Sales Revenue Dashboard</button>
+<div class="accordion-body">
+<div class="project-gallery">
+<img src="Sales-Revenue-Dashboard/images/page1.png" onclick="openModal(0)">
+<img src="Sales-Revenue-Dashboard/images/page2.png" onclick="openModal(1)">
+</div>
+</div>
+</div>
 
-  <!-- CERTIFICATIONS SECTION -->
-  <section id="certifications">
-    <h2>Certifications</h2>
-    <div class="grid grid-2">
-      <div class="card">
-        <h3>Data Analytics</h3>
-        <div style="margin-top:.5rem;">
-          <a href="assets/Data_Analytics_Certificate.pdf" download>Download certificate (PDF)</a>
-        </div>
-      </div>
-      <div class="card">
-        <h3>AutoCAD</h3>
-        <div style="margin-top:.5rem;">
-          <a href="assets/AutoCAD_Certificate.pdf" download>Download certificate (PDF)</a>
-        </div>
-      </div>
-      <div class="card">
-        <h3>Primavera</h3>
-        <div style="margin-top:.5rem;">
-          <a href="assets/Primavera_Certificate.pdf" download>Download certificate (PDF)</a>
-        </div>
-      </div>
-      <div class="card">
-        <h3>ESurvey CADD</h3>
-        <div style="margin-top:.5rem;">
-          <a href="assets/ESurvey_CADD_Certificate.pdf" download>Download certificate (PDF)</a>
-        </div>
-      </div>
-    </div>
-  </section>
+<div class="accordion-item">
+<button class="accordion-header">SaaS Retention Analytics</button>
+<div class="accordion-body">
+<div class="project-gallery">
+<img src="SaaS-revenue-retention-analytics/images/page1_growth_command_center.png" onclick="openModal(2)">
+<img src="SaaS-revenue-retention-analytics/images/page2_retention_intelligence.png" onclick="openModal(3)">
+</div>
+</div>
+</div>
 
-  <!-- INTERNSHIP SECTION -->
-  <section id="internship">
-    <h2>Internship</h2>
-    <div class="grid grid-2">
-      <div class="card">
-        <h3>APWD</h3>
-        <div style="margin-top:.5rem;">
-          <a href="assets/APWD.pdf" download>Download internship certificate (PDF)</a>
-        </div>
-      </div>
-      <div class="card">
-        <h3>Adani</h3>
-        <div style="margin-top:.5rem;">
-          <a href="assets/Adani_Internship.pdf" download>Download internship certificate (PDF)</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- PROJECTS SECTION -->
-  <section id="projects">
-  <h2>Projects</h2>
-
-  <div class="accordion">
-
-    <!-- PROJECT 1 -->
-    <div class="accordion-item">
-      <button class="accordion-header">
-        Sales-Revenue Dashboard with Forecasting
-      </button>
-      <div class="accordion-body">
-
-        <p>
-          Comprehensive sales analytics system covering revenue trends,
-          forecasting, regional performance, and product insights.
-        </p>
-        <p>Tech Stack: Python | MySQL | Excel | Power BI</p>
-
-        <div class="project-gallery">
-          <img src="Sales-Revenue-Dashboard/images/page1.png" onclick="openModal(0)">
-          <img src="Sales-Revenue-Dashboard/images/page2.png" onclick="openModal(1)">
-          <img src="Sales-Revenue-Dashboard/images/page3.png" onclick="openModal(2)">
-          <img src="Sales-Revenue-Dashboard/images/mysql_table.png" onclick="openModal(3)">
-        </div>
-
-        <p class="swipe-hint">swipe to see more →</p>
-      </div>
-    </div>
-
-    <!-- PROJECT 2 -->
-    <div class="accordion-item">
-      <button class="accordion-header">
-        E-Commerce Funnel & Conversion Analytics
-      </button>
-      <div class="accordion-body">
-
-        <p>
-          Event-level e-commerce analytics tracking user journeys from
-          product views to purchase with funnel conversion insights.
-        </p>
-        <p>Tech Stack: Python | Power BI</p>
-
-        <div class="project-gallery">
-          <img src="E-commerce-Funnel-Dashboard/images/e-commerce_funnel_dashboard.png" onclick="openModal(4)">
-          <img src="E-commerce-Funnel-Dashboard/images/e-commerce_funnel.png" onclick="openModal(5)">
-          <img src="E-commerce-Funnel-Dashboard/images/data_csv.png" onclick="openModal(6)">
-        </div>
-
-        <p class="swipe-hint">swipe to see more →</p>
-      </div>
-    </div>
-
-    <!-- PROJECT 3 -->
-    <div class="accordion-item">
-      <button class="accordion-header">
-        Business Performance Forecasting & Recommendations
-      </button>
-      <div class="accordion-body">
-
-        <p>
-          End-to-end analytics system combining historical analysis,
-          ML-based forecasting, and recommendation logic.
-        </p>
-        <p>Tech Stack: Python | Machine Learning | Excel | Power BI</p>
-
-        <div class="project-gallery">
-          <img src="Business-Performance-Forecasting-&-Recommendations/images/page1a.png" onclick="openModal(7)">
-          <img src="Business-Performance-Forecasting-&-Recommendations/images/page1b.png" onclick="openModal(8)">
-          <img src="Business-Performance-Forecasting-&-Recommendations/images/page1c.png" onclick="openModal(9)">
-          <img src="Business-Performance-Forecasting-&-Recommendations/images/page2.png" onclick="openModal(10)">
-          <img src="Business-Performance-Forecasting-&-Recommendations/images/page3.png" onclick="openModal(11)">
-        </div>
-
-        <p class="swipe-hint">swipe to see more →</p>
-      </div>
-    </div>
-
-    <!-- PROJECT 4 -->
-    <div class="accordion-item">
-      <button class="accordion-header">
-        Pricing & Promotion Impact Simulator
-      </button>
-      <div class="accordion-body">
-
-        <p>
-          Decision-support system simulating pricing and promotion
-          strategies with instant revenue and profit impact analysis.
-        </p>
-        <p>Tech Stack: Python | machine Learning | Excel | Power BI</p>
-
-        <div class="project-gallery">
-          <img src="Pricing-and-Promotion-Impact-Simulator/images/page1a.png" onclick="openModal(12)">
-          <img src="Pricing-and-Promotion-Impact-Simulator/images/page1b.png" onclick="openModal(13)">
-          <img src="Pricing-and-Promotion-Impact-Simulator/images/page1c.png" onclick="openModal(14)">
-          <img src="Pricing-and-Promotion-Impact-Simulator/images/page2a.png" onclick="openModal(15)">
-          <img src="Pricing-and-Promotion-Impact-Simulator/images/page2b.png" onclick="openModal(16)">
-          <img src="Pricing-and-Promotion-Impact-Simulator/images/page2c.png" onclick="openModal(17)">
-        </div>
-
-        <p class="swipe-hint">swipe to see more →</p>
-      </div>
-    </div>
-
-    <!-- PROJECT 5 (SaaS – STAR) -->
-    <div class="accordion-item">
-      <button class="accordion-header">
-        SaaS Revenue & Retention Analytics
-      </button>
-      <div class="accordion-body">
-
-        <p>
-          End-to-end SaaS analytics system identifying lifecycle churn
-          drivers and simulating retention-driven revenue impact
-          using interactive what-if analysis.
-        </p>
-        <p>Tech Stack: Python | MySQL | Power BI</p>
-
-        <div class="project-gallery">
-          <img src="SaaS-revenue-retention-analytics/images/page1_growth_command_center.png" onclick="openModal(18)">
-          <img src="SaaS-revenue-retention-analytics/images/page2_retention_intelligence.png" onclick="openModal(19)">
-          <img src="SaaS-revenue-retention-analytics/images/page3_retention_simulator.png" onclick="openModal(20)">
-        </div>
-
-        <p class="swipe-hint">swipe to see more →</p>
-      </div>
-    </div>
-
-  </div>
-  </section>
-
-  <!-- EXPERIENCE SECTION -->
-  <section id="experience">
-    <h2>Experience</h2>
-    <div class="grid grid-2">
-      <div class="card">
-        <h3>Project Engineer — North Eastern Development Finance Corporation Ltd. (NEDFi), Guwahati, Assam.</h3>
-        <p class="meta">May 2024 – Present</p>
-        <ul>
-          <li>Monitoring of projects sanctioned under the Ministry of Development of North Eastern Region (MDoNER).</li>
-          <li>Preparation of Project Reports, Progress Tracking Sheets, and Financial Summaries.</li>
-          <li>Coordination with Central and State Govt. bodies for smooth and timely operation of the projects.</li>
-          <li>To inspect project site as and when required by the management and prepare site inspection report.</li>
-          <li>Maintaining the MIS Report on a daily basis to keep the track of the projects.</li>
-          <li>Preparation of Site Inspection Plan (Roster Plan) for various inspecting entity, monitor its progress, report uploading status and resolving technical bottlenecks.</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3>Assistant Engineer — Alliance Engineers & Consultants Pvt. Ltd., Guwahati, Assam.</h3>
-        <p class="meta">Feb 2023 – Apr 2024</p>
-        <ul>
-          <li>Preparation of various sections of Detailed Project Reports (DPRs) for the projects under Assam Resilient Rural Bridge Program (ARRBP) across Assam, India, funded by the World Bank.</li>
-          <li>Preparation of Hydrology Reports, Key Plans of the Project Site, Main Reports, Bridge Inventory, Economic Analysis, Horizontal and Vertical Alignment of the bridges and its approach roads.</li>
-          <li>Additionally, preparation of Key Plans for various State Highways and National Highways.</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACT SECTION -->
-  <section id="contact">
-    <h2>Contact</h2>
-    <div class="card">
-      <p>Email: <a href="mailto:gauravniwassarma101@gmail.com">gauravniwassarma101@gmail.com</a></p>
-      <p>LinkedIn: <a href="https://www.linkedin.com/in/gns7cr" target="_blank">linkedin.com/in/gns7cr</a></p>
-      <p>GitHub: <a href="https://github.com/gaurav-14-ns" target="_blank">github.com/gaurav-14-ns</a></p>
-    </div>
-  </section>
+</div>
+</section>
 
 </main>
 
-  <!-- Fullscreen Image Modal -->
+<!-- MODAL -->
 <div id="imgModal" class="modal">
   <span class="close" onclick="closeModal()">&times;</span>
-  <img id="modalImg" class="modal-content" />
-  <div class="modal-nav">
-    <span class="prev" onclick="changeImage(-1)">&#10094;</span>
-    <span class="next" onclick="changeImage(1)">&#10095;</span>
-  </div>
+  <span class="prev" onclick="changeImage(-1)">&#10094;</span>
+  <img id="modalImg">
+  <span class="next" onclick="changeImage(1)">&#10095;</span>
 </div>
 
-<footer>
-  <div class="container">
-    © <span id="year"></span> Gaurav Niwas Sarma
-  </div>
-</footer>
-
 <script>
-  document.getElementById("year").textContent = new Date().getFullYear();
+document.addEventListener("DOMContentLoaded", () => {
 
+  /* THEME */
   const themeBtn = document.getElementById("theme");
-  themeBtn.addEventListener("click", () => {
-    document.body.classList.toggle("light");
-    localStorage.setItem("theme", document.body.classList.contains("light") ? "light" : "dark");
-  });
-  if (localStorage.getItem("theme") === "light") { document.body.classList.add("light"); }
+  themeBtn.onclick = () => document.body.classList.toggle("light");
 
-  function calculateExperience(startDate) {
-    const start = new Date(startDate);
-    const now = new Date();
-    let years = now.getFullYear() - start.getFullYear();
-    let months = now.getMonth() - start.getMonth();
-    if (months < 0) { years--; months +=12; }
-    return `${years} years ${months} months`;
-  }
-  document.getElementById("total-experience").textContent = calculateExperience("2023-02-07");
-
+  /* NAV */
   const toggle = document.querySelector(".menu-toggle");
   const navLinks = document.querySelector(".nav-links");
-  toggle.addEventListener("click", () => { navLinks.classList.toggle("active"); });
-  document.querySelectorAll(".nav-links a").forEach(link => {
-    link.addEventListener("click", () => { navLinks.classList.remove("active"); });
-  });
-  
+  toggle.onclick = () => navLinks.classList.toggle("active");
 
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-
-      let modalIndex = 0;
-    const modal = document.getElementById("imgModal");
-    const modalImg = document.getElementById("modalImg");
-    const images = document.querySelectorAll(".project-gallery img");
-
-    window.openModal = function(index) {
-      modalIndex = index;
-      modalImg.src = images[modalIndex].src;
-      modal.style.display = "flex";
-    };
-
-    window.closeModal = function() {
-      modal.style.display = "none";
-    };
-
-    window.changeImage = function(step) {
-      modalIndex += step;
-      if (modalIndex < 0) modalIndex = images.length - 1;
-      if (modalIndex >= images.length) modalIndex = 0;
-      modalImg.src = images[modalIndex].src;
-    };
-      
-      document.addEventListener("keydown", function(e) {
-        if (e.key === "Escape") closeModal();
-        });
+  /* ACCORDION */
+  const headers = document.querySelectorAll(".accordion-header");
+  headers.forEach(h => {
+    h.onclick = () => {
+      headers.forEach(x => {
+        if (x !== h) {
+          x.classList.remove("active");
+          x.nextElementSibling.style.maxHeight = null;
+        }
       });
+      h.classList.toggle("active");
+      const body = h.nextElementSibling;
+      body.style.maxHeight = h.classList.contains("active") ? body.scrollHeight + "px" : null;
+    };
+  });
+
+  /* MODAL */
+  const modal = document.getElementById("imgModal");
+  const modalImg = document.getElementById("modalImg");
+  const images = document.querySelectorAll(".project-gallery img");
+  let idx = 0;
+
+  window.openModal = i => {
+    idx = i;
+    modalImg.src = images[idx].src;
+    modal.style.display = "flex";
+  };
+  window.closeModal = () => modal.style.display = "none";
+  window.changeImage = step => {
+    idx = (idx + step + images.length) % images.length;
+    modalImg.src = images[idx].src;
+  };
+});
 </script>
 
 </body>
 </html>
-
-
