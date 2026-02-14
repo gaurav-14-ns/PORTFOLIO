@@ -465,6 +465,16 @@
 
 </main>
 
+  <!-- Fullscreen Image Modal -->
+<div id="imgModal" class="modal">
+  <span class="close" onclick="closeModal()">&times;</span>
+  <img id="modalImg" class="modal-content" />
+  <div class="modal-nav">
+    <span class="prev" onclick="changeImage(-1)">&#10094;</span>
+    <span class="next" onclick="changeImage(1)">&#10095;</span>
+  </div>
+</div>
+
 <footer>
   <div class="container">
     © <span id="year"></span> Gaurav Niwas Sarma
@@ -497,70 +507,40 @@
   document.querySelectorAll(".nav-links a").forEach(link => {
     link.addEventListener("click", () => { navLinks.classList.remove("active"); });
   });
+  
 
-  // Modal JS
-  let modalIndex = 0;
-  const modal = document.getElementById("imgModal");
-  const modalImg = document.getElementById("modalImg");
-  const images = document.querySelectorAll(".project-gallery img");
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
 
-  function openModal(index) {
-    modalIndex = index;
-    modalImg.src = images[modalIndex].src;
-    modal.style.display = "flex";
-  }
+      let modalIndex = 0;
+    const modal = document.getElementById("imgModal");
+    const modalImg = document.getElementById("modalImg");
+    const images = document.querySelectorAll(".project-gallery img");
 
-  function closeModal() {
-    modal.style.display = "none";
-  }
+    window.openModal = function(index) {
+      modalIndex = index;
+      modalImg.src = images[modalIndex].src;
+      modal.style.display = "flex";
+    };
 
-  function changeImage(step) {
-    modalIndex += step;
-    if (modalIndex < 0) modalIndex = images.length -1;
-    if (modalIndex >= images.length) modalIndex = 0;
-    modalImg.src = images[modalIndex].src;
-    modalImg.style.transform = "scale(1)";
-  }
-  document.addEventListener("keydown", function(e) {
-    if (e.key === "Escape") closeModal();
-  });
+    window.closeModal = function() {
+      modal.style.display = "none";
+    };
 
+    window.changeImage = function(step) {
+      modalIndex += step;
+      if (modalIndex < 0) modalIndex = images.length - 1;
+      if (modalIndex >= images.length) modalIndex = 0;
+      modalImg.src = images[modalIndex].src;
+    };
+      
+      document.addEventListener("keydown", function(e) {
+        if (e.key === "Escape") closeModal();
+        });
+      });
 </script>
-
-<script>
-const accordionHeaders = document.querySelectorAll(".accordion-header");
-
-accordionHeaders.forEach(header => {
-  header.addEventListener("click", () => {
-
-    accordionHeaders.forEach(h => {
-      if (h !== header) {
-        h.classList.remove("active");
-        h.nextElementSibling.style.maxHeight = null;
-      }
-    });
-
-    header.classList.toggle("active");
-    const body = header.nextElementSibling;
-
-    if (header.classList.contains("active")) {
-      body.style.maxHeight = body.scrollHeight + "px";
-    } else {
-      body.style.maxHeight = null;
-    }
-  });
-});
-</script>
-  <!-- Fullscreen Image Modal -->
-<div id="imgModal" class="modal">
-  <span class="close" onclick="closeModal()">&times;</span>
-  <img id="modalImg" class="modal-content" />
-  <div class="modal-nav">
-    <span class="prev" onclick="changeImage(-1)">&#10094;</span>
-    <span class="next" onclick="changeImage(1)">&#10095;</span>
-  </div>
-</div>
 
 </body>
 </html>
+
 
