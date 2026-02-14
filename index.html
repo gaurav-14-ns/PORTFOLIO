@@ -7,68 +7,71 @@
 
 <style>
 :root{
-  --bg:#0f172a;--panel:#111827;--text:#e5e7eb;--muted:#9ca3af;
+  --bg:#0f172a;--text:#e5e7eb;--muted:#9ca3af;
   --accent:#22c55e;--card:#0b1223;--border:#1f2937;
 }
-.light{
-  --bg:#f8fafc;--panel:#fff;--text:#0f172a;--muted:#475569;
-  --accent:#0ea5e9;--card:#fff;--border:#e2e8f0;
+html,body{
+  margin:0;font-family:system-ui;background:var(--bg);color:var(--text);
 }
-html,body{margin:0;font-family:system-ui;background:var(--bg);color:var(--text);}
 .container{max-width:1080px;margin:auto;padding:0 1.25rem}
 section{padding:2rem 0}
+h2{margin-bottom:1rem}
 .card{background:var(--card);border:1px solid var(--border);border-radius:.75rem;padding:1rem}
 
-/* ACCORDION */
+/* Accordion */
 .accordion-item{border-bottom:1px solid var(--border)}
 .accordion-header{
   width:100%;background:none;border:none;padding:1rem;
+  font-size:1.05rem;color:var(--text);
   display:flex;justify-content:space-between;
-  font-size:1.05rem;color:var(--text);cursor:pointer
+  cursor:pointer
 }
-.accordion-header::after{content:"▸";transition:.2s}
+.accordion-header::after{content:"▸";transition:.25s}
 .accordion-header.active::after{transform:rotate(90deg)}
-.accordion-body{max-height:0;overflow:hidden;transition:max-height .3s ease}
+.accordion-body{max-height:0;overflow:hidden;transition:max-height .35s ease}
 
-/* GALLERY */
-.project-gallery{display:flex;gap:.5rem;overflow-x:auto}
+/* Gallery */
+.project-gallery{
+  display:flex;gap:.5rem;overflow-x:auto;padding-bottom:.25rem
+}
 .project-gallery img{
-  max-height:260px;border-radius:.5rem;border:1px solid var(--border);
+  max-height:260px;border-radius:.5rem;
+  border:1px solid var(--border);
   cursor:pointer
 }
 
-/* MODAL */
+/* Modal */
 .modal{
   display:none;position:fixed;inset:0;
   background:rgba(0,0,0,.95);
-  z-index:9999;align-items:center;justify-content:center;
-  touch-action:pan-y;
+  z-index:9999;
+  touch-action:none;
+}
+.modal-inner{
+  width:100%;height:100%;
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
 }
 .modal img{
-  max-width:100vw;max-height:100vh;
+  max-width:100%;
+  max-height:100%;
   object-fit:contain;
+  transition:transform .25s ease;
 }
 .close{
   position:absolute;top:16px;right:20px;
-  font-size:34px;color:#fff;cursor:pointer;
-  z-index:10;
+  font-size:34px;color:#fff;cursor:pointer;z-index:10
 }
 
-/* Desktop arrows only */
-.modal-nav{
-  display:flex;
-}
+/* Desktop arrows */
 .modal-nav span{
   position:absolute;top:50%;transform:translateY(-50%);
   font-size:48px;color:#fff;cursor:pointer;
   padding:10px 16px;border-radius:50%;
-  background:rgba(0,0,0,.35)
+  background:rgba(0,0,0,.4)
 }
 .prev{left:20px}.next{right:20px}
-
-@media (max-width: 768px){
-  .modal-nav{display:none}
-}
+@media(max-width:768px){.modal-nav{display:none}}
 </style>
 </head>
 
@@ -81,6 +84,7 @@ section{padding:2rem 0}
 
 <div class="accordion">
 
+<!-- PROJECT 1 -->
 <div class="accordion-item">
 <button class="accordion-header">Sales Revenue Dashboard</button>
 <div class="accordion-body">
@@ -93,6 +97,7 @@ section{padding:2rem 0}
 </div>
 </div>
 
+<!-- PROJECT 2 -->
 <div class="accordion-item">
 <button class="accordion-header">SaaS Revenue & Retention Analytics</button>
 <div class="accordion-body">
@@ -110,10 +115,12 @@ section{padding:2rem 0}
 
 </main>
 
-<!-- MODAL -->
+<!-- Modal -->
 <div id="imgModal" class="modal">
 <span class="close">&times;</span>
+<div class="modal-inner">
 <img id="modalImg">
+</div>
 <div class="modal-nav">
 <span class="prev">&#10094;</span>
 <span class="next">&#10095;</span>
@@ -121,61 +128,112 @@ section{padding:2rem 0}
 </div>
 
 <script>
-/* ACCORDION */
+/* Accordion */
 document.querySelectorAll(".accordion-header").forEach(h=>{
   h.onclick=()=>{
     document.querySelectorAll(".accordion-header").forEach(x=>{
       if(x!==h){x.classList.remove("active");x.nextElementSibling.style.maxHeight=null}
     });
     h.classList.toggle("active");
-    let body=h.nextElementSibling;
+    const body=h.nextElementSibling;
     body.style.maxHeight=h.classList.contains("active")?body.scrollHeight+"px":null;
   };
 });
 
-/* MODAL + SWIPE */
+/* Modal logic */
 const modal=document.getElementById("imgModal");
 const modalImg=document.getElementById("modalImg");
-const images=[...document.querySelectorAll(".project-gallery img")];
-let index=0,startX=0;
+const closeBtn=document.querySelector(".close");
+const prevBtn=document.querySelector(".prev");
+const nextBtn=document.querySelector(".next");
 
-images.forEach((img,i)=>{
-  img.onclick=()=>{
-    index=i;
-    modalImg.src=img.src;
-    modal.style.display="flex";
-  };
+let currentImages=[];
+let currentIndex=0;
+let scale=1;
+let startX=0,startY=0,startDist=0;
+
+document.querySelectorAll(".project-gallery").forEach(gallery=>{
+  const imgs=[...gallery.querySelectorAll("img")];
+  imgs.forEach((img,i)=>{
+    img.onclick=()=>{
+      currentImages=imgs.map(x=>x.src);
+      currentIndex=i;
+      openModal();
+    };
+  });
 });
 
-document.querySelector(".close").onclick=()=>modal.style.display="none";
-document.querySelector(".prev").onclick=()=>change(-1);
-document.querySelector(".next").onclick=()=>change(1);
-
-function change(step){
-  index=(index+step+images.length)%images.length;
-  modalImg.src=images[index].src;
+function openModal(){
+  modalImg.src=currentImages[currentIndex];
+  modal.style.display="block";
+  resetZoom();
 }
 
-/* Swipe handling */
+function closeModal(){
+  modal.style.display="none";
+  resetZoom();
+}
+
+function change(step){
+  currentIndex=(currentIndex+step+currentImages.length)%currentImages.length;
+  modalImg.src=currentImages[currentIndex];
+  resetZoom();
+}
+
+function resetZoom(){
+  scale=1;
+  modalImg.style.transform="scale(1)";
+}
+
+/* Desktop controls */
+closeBtn.onclick=closeModal;
+prevBtn.onclick=()=>change(-1);
+nextBtn.onclick=()=>change(1);
+document.addEventListener("keydown",e=>{
+  if(e.key==="Escape")closeModal();
+  if(e.key==="ArrowLeft")change(-1);
+  if(e.key==="ArrowRight")change(1);
+});
+
+/* Touch swipe */
 modal.addEventListener("touchstart",e=>{
-  startX=e.touches[0].clientX;
-},{passive:true});
+  if(e.touches.length===1){
+    startX=e.touches[0].clientX;
+    startY=e.touches[0].clientY;
+  }
+  if(e.touches.length===2){
+    startDist=Math.hypot(
+      e.touches[0].clientX-e.touches[1].clientX,
+      e.touches[0].clientY-e.touches[1].clientY
+    );
+  }
+},{passive:false});
+
+modal.addEventListener("touchmove",e=>{
+  e.preventDefault();
+  if(e.touches.length===2){
+    const dist=Math.hypot(
+      e.touches[0].clientX-e.touches[1].clientX,
+      e.touches[0].clientY-e.touches[1].clientY
+    );
+    scale=Math.min(3,Math.max(1,scale*(dist/startDist)));
+    modalImg.style.transform=`scale(${scale})`;
+    startDist=dist;
+  }
+},{passive:false});
 
 modal.addEventListener("touchend",e=>{
+  if(scale>1) return;
   const endX=e.changedTouches[0].clientX;
   const diff=startX-endX;
-  if(Math.abs(diff)>50){
+  if(Math.abs(diff)>60){
     diff>0?change(1):change(-1);
   }
 });
 
-/* ESC + background tap */
-document.addEventListener("keydown",e=>{
-  if(e.key==="Escape")modal.style.display="none";
-});
-modal.addEventListener("click",e=>{
-  if(e.target===modal)modal.style.display="none";
-});
+modal.onclick=e=>{
+  if(e.target===modal)closeModal();
+};
 </script>
 
 </body>
