@@ -15,16 +15,9 @@
   --accent:#0ea5e9;--card:#fff;--border:#e2e8f0;
 }
 html,body{margin:0;font-family:system-ui;background:var(--bg);color:var(--text);}
-.container{max-width:1080px;margin:auto;padding:0 1.25rem;}
-header{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--border);z-index:10}
-.nav{display:flex;justify-content:space-between;align-items:center;height:64px}
-.nav-links{display:flex;gap:1rem}
-.nav-links a{color:var(--text);text-decoration:none}
-.menu-toggle{display:none;cursor:pointer}
+.container{max-width:1080px;margin:auto;padding:0 1.25rem}
 section{padding:2rem 0}
 .card{background:var(--card);border:1px solid var(--border);border-radius:.75rem;padding:1rem}
-.skills{display:flex;flex-wrap:wrap;gap:.5rem}
-.chip{border:1px solid var(--border);padding:.25rem .5rem;border-radius:.5rem}
 
 /* ACCORDION */
 .accordion-item{border-bottom:1px solid var(--border)}
@@ -37,7 +30,7 @@ section{padding:2rem 0}
 .accordion-header.active::after{transform:rotate(90deg)}
 .accordion-body{max-height:0;overflow:hidden;transition:max-height .3s ease}
 
-/* IMAGE GALLERY */
+/* GALLERY */
 .project-gallery{display:flex;gap:.5rem;overflow-x:auto}
 .project-gallery img{
   max-height:260px;border-radius:.5rem;border:1px solid var(--border);
@@ -47,42 +40,39 @@ section{padding:2rem 0}
 /* MODAL */
 .modal{
   display:none;position:fixed;inset:0;
-  background:rgba(0,0,0,.9);
-  z-index:9999;align-items:center;justify-content:center
+  background:rgba(0,0,0,.95);
+  z-index:9999;align-items:center;justify-content:center;
+  touch-action:pan-y;
 }
-.modal img{max-width:95vw;max-height:90vh;border-radius:8px}
+.modal img{
+  max-width:100vw;max-height:100vh;
+  object-fit:contain;
+}
 .close{
-  position:absolute;top:20px;right:30px;
-  font-size:40px;color:#fff;cursor:pointer
+  position:absolute;top:16px;right:20px;
+  font-size:34px;color:#fff;cursor:pointer;
+  z-index:10;
+}
+
+/* Desktop arrows only */
+.modal-nav{
+  display:flex;
 }
 .modal-nav span{
   position:absolute;top:50%;transform:translateY(-50%);
-  font-size:56px;color:#fff;cursor:pointer;
-  padding:16px 20px;border-radius:50%;
+  font-size:48px;color:#fff;cursor:pointer;
+  padding:10px 16px;border-radius:50%;
   background:rgba(0,0,0,.35)
 }
-.modal-nav span:hover{background:rgba(0,0,0,.6)}
 .prev{left:20px}.next{right:20px}
 
-@media(max-width:768px){
-  .nav-links{display:none;flex-direction:column}
-  .menu-toggle{display:block}
+@media (max-width: 768px){
+  .modal-nav{display:none}
 }
 </style>
 </head>
 
 <body>
-
-<header>
-  <div class="nav container">
-    <strong>Gaurav</strong>
-    <div class="menu-toggle">☰</div>
-    <nav class="nav-links">
-      <a href="#projects">Projects</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </div>
-</header>
 
 <main class="container">
 
@@ -118,14 +108,6 @@ section{padding:2rem 0}
 </div>
 </section>
 
-<section id="contact">
-<h2>Contact</h2>
-<div class="card">
-<p>Email: <a href="mailto:gauravniwassarma101@gmail.com">gauravniwassarma101@gmail.com</a></p>
-<p>GitHub: <a href="https://github.com/gaurav-14-ns">github.com/gaurav-14-ns</a></p>
-</div>
-</section>
-
 </main>
 
 <!-- MODAL -->
@@ -151,15 +133,20 @@ document.querySelectorAll(".accordion-header").forEach(h=>{
   };
 });
 
-/* MODAL */
+/* MODAL + SWIPE */
 const modal=document.getElementById("imgModal");
 const modalImg=document.getElementById("modalImg");
-const images=document.querySelectorAll(".project-gallery img");
-let index=0;
+const images=[...document.querySelectorAll(".project-gallery img")];
+let index=0,startX=0;
 
 images.forEach((img,i)=>{
-  img.onclick=()=>{index=i;modalImg.src=img.src;modal.style.display="flex";}
+  img.onclick=()=>{
+    index=i;
+    modalImg.src=img.src;
+    modal.style.display="flex";
+  };
 });
+
 document.querySelector(".close").onclick=()=>modal.style.display="none";
 document.querySelector(".prev").onclick=()=>change(-1);
 document.querySelector(".next").onclick=()=>change(1);
@@ -169,10 +156,26 @@ function change(step){
   modalImg.src=images[index].src;
 }
 
+/* Swipe handling */
+modal.addEventListener("touchstart",e=>{
+  startX=e.touches[0].clientX;
+},{passive:true});
+
+modal.addEventListener("touchend",e=>{
+  const endX=e.changedTouches[0].clientX;
+  const diff=startX-endX;
+  if(Math.abs(diff)>50){
+    diff>0?change(1):change(-1);
+  }
+});
+
+/* ESC + background tap */
 document.addEventListener("keydown",e=>{
   if(e.key==="Escape")modal.style.display="none";
 });
-modal.onclick=e=>{if(e.target===modal)modal.style.display="none"};
+modal.addEventListener("click",e=>{
+  if(e.target===modal)modal.style.display="none";
+});
 </script>
 
 </body>
