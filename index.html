@@ -121,26 +121,25 @@
     .project-gallery::-webkit-scrollbar { display: none; }
     .project-gallery { -ms-overflow-style: none; scrollbar-width: none; }
 
+    /* Fullscreen image modal (simple & clean) */
     .modal {
       display: none;
       position: fixed;
+      inset: 0;
       z-index: 9999;
-      padding-top: 60px;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      background-color: rgba(0,0,0,0.95);
+      background: rgba(0,0,0,0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
+
     .modal-content {
-      margin: auto;
-      display: block;
-      max-width: 90%;
-      max-height: 80%;
-      transition: transform 0.25s ease;
-      touch-action: pan-x pan-y;
+      max-width: 95vw;
+      max-height: 90vh;
+      object-fit: contain;
+      border-radius: 8px;
     }
+
     .close {
       position: absolute;
       top: 20px;
@@ -210,8 +209,7 @@
   <section class="hero">
     <div>
       <span class="badge">Open to opportunities</span>
-      <h1>Data-driven builder who turns messy spreadsheets and Python scripts into clean, useful products.</h1>
-      <p>Hi, I’m Gaurav Niwas Sarma. I work with Python, Power BI, MySQL and Excel automation.</p>
+      <h3>Hi, I’m Gaurav Niwas Sarma. Data-driven builder who turns messy spreadsheets and Python scripts into clean, useful products.</h3>
       <div class="cta">
         <a class="btn primary" href="#projects">View projects</a>
         <a class="btn" href="#contact">Contact me</a>
@@ -239,6 +237,7 @@
       <span class="chip">MySQL</span>
       <span class="chip">Power BI</span>
       <span class="chip">MS Excel</span>
+      <span class="chip">Machine Learning</span>
       <span class="chip">AutoCAD</span>
       <span class="chip">Primavera</span>
       <span class="chip">MX Road</span>
@@ -306,7 +305,6 @@
     <div class="accordion-item">
       <button class="accordion-header">
         Sales-Revenue Dashboard with Forecasting
-        <span class="meta">Python · MySQL · Power BI · Excel</span>
       </button>
       <div class="accordion-body">
 
@@ -314,6 +312,7 @@
           Comprehensive sales analytics system covering revenue trends,
           forecasting, regional performance, and product insights.
         </p>
+        <p>Tech Stack: Python | MySQL | Excel | Power BI</p>
 
         <div class="project-gallery">
           <img src="Sales-Revenue-Dashboard/images/page1.png" onclick="openModal(0)">
@@ -330,7 +329,6 @@
     <div class="accordion-item">
       <button class="accordion-header">
         E-Commerce Funnel & Conversion Analytics
-        <span class="meta">Python · Power BI</span>
       </button>
       <div class="accordion-body">
 
@@ -338,6 +336,7 @@
           Event-level e-commerce analytics tracking user journeys from
           product views to purchase with funnel conversion insights.
         </p>
+        <p>Tech Stack: Python | Power BI</p>
 
         <div class="project-gallery">
           <img src="E-commerce-Funnel-Dashboard/images/e-commerce_funnel_dashboard.png" onclick="openModal(4)">
@@ -353,7 +352,6 @@
     <div class="accordion-item">
       <button class="accordion-header">
         Business Performance Forecasting & Recommendations
-        <span class="meta">Python · ML · Excel · Power BI</span>
       </button>
       <div class="accordion-body">
 
@@ -361,6 +359,7 @@
           End-to-end analytics system combining historical analysis,
           ML-based forecasting, and recommendation logic.
         </p>
+        <p>Tech Stack: Python | Machine Learning | Excel | Power BI</p>
 
         <div class="project-gallery">
           <img src="Business-Performance-Forecasting-&-Recommendations/images/page1a.png" onclick="openModal(7)">
@@ -378,7 +377,6 @@
     <div class="accordion-item">
       <button class="accordion-header">
         Pricing & Promotion Impact Simulator
-        <span class="meta">Python · ML · Excel · Power BI</span>
       </button>
       <div class="accordion-body">
 
@@ -386,6 +384,7 @@
           Decision-support system simulating pricing and promotion
           strategies with instant revenue and profit impact analysis.
         </p>
+        <p>Tech Stack: Python | machine Learning | Excel | Power BI</p>
 
         <div class="project-gallery">
           <img src="Pricing-and-Promotion-Impact-Simulator/images/page1a.png" onclick="openModal(12)">
@@ -404,7 +403,6 @@
     <div class="accordion-item">
       <button class="accordion-header">
         SaaS Revenue & Retention Analytics
-        <span class="meta">Python · MySQL · Power BI</span>
       </button>
       <div class="accordion-body">
 
@@ -413,6 +411,7 @@
           drivers and simulating retention-driven revenue impact
           using interactive what-if analysis.
         </p>
+        <p>Tech Stack: Python | MySQL | Power BI</p>
 
         <div class="project-gallery">
           <img src="SaaS-revenue-retention-analytics/images/page1_growth_command_center.png" onclick="openModal(18)">
@@ -444,12 +443,12 @@
         </ul>
       </div>
       <div class="card">
-        <h3>Assistant Engineer — Alliance Engineers & Consultants, Guwahati, Assam.</h3>
+        <h3>Assistant Engineer — Alliance Engineers & Consultants Pvt. Ltd., Guwahati, Assam.</h3>
         <p class="meta">Feb 2023 – Apr 2024</p>
         <ul>
-          <li>Preparation various sections of Detailed Project Reports (DPRs) for the projects under Assam Resilient Rural Bridge Program (ARRBP) across Assam, India, funded by the World Bank.</li>
+          <li>Preparation of various sections of Detailed Project Reports (DPRs) for the projects under Assam Resilient Rural Bridge Program (ARRBP) across Assam, India, funded by the World Bank.</li>
           <li>Preparation of Hydrology Reports, Key Plans of the Project Site, Main Reports, Bridge Inventory, Economic Analysis, Horizontal and Vertical Alignment of the bridges and its approach roads.</li>
-          <li>Addditionally, preparation Key Plans for various State Highways and National Highways.</li>
+          <li>Additionally, preparation of Key Plans for various State Highways and National Highways.</li>
         </ul>
       </div>
     </div>
@@ -507,14 +506,13 @@
   const images = document.querySelectorAll(".project-gallery img");
 
   function openModal(index) {
-    modal.style.display = "block";
     modalIndex = index;
     modalImg.src = images[modalIndex].src;
+    modal.style.display = "flex";
   }
 
   function closeModal() {
     modal.style.display = "none";
-    modalImg.style.transform = "scale(1)";
   }
 
   function changeImage(step) {
@@ -524,38 +522,10 @@
     modalImg.src = images[modalIndex].src;
     modalImg.style.transform = "scale(1)";
   }
-
-  // Desktop click zoom
-  let scale = 1;
-  modalImg.addEventListener("click", function(){
-    scale = scale === 1 ? 2 : 1;
-    modalImg.style.transform = "scale(" + scale + ")";
+  document.addEventListener("keydown", function(e) {
+    if (e.key === "Escape") closeModal();
   });
 
-  // Pinch to zoom on mobile
-  let startDist = 0;
-  modalImg.addEventListener("touchstart", function(e){
-    if(e.touches.length === 2) {
-      startDist = Math.hypot(
-        e.touches[0].pageX - e.touches[1].pageX,
-        e.touches[0].pageY - e.touches[1].pageY
-      );
-    }
-  }, {passive:false});
-
-  modalImg.addEventListener("touchmove", function(e){
-    if(e.touches.length === 2) {
-      e.preventDefault();
-      const dist = Math.hypot(
-        e.touches[0].pageX - e.touches[1].pageX,
-        e.touches[0].pageY - e.touches[1].pageY
-      );
-      let newScale = (dist / startDist);
-      if(newScale < 1) newScale = 1;
-      if(newScale > 3) newScale = 3;
-      modalImg.style.transform = "scale(" + newScale + ")";
-    }
-  }, {passive:false});
 </script>
 
 <script>
@@ -586,15 +556,3 @@ accordionHeaders.forEach(header => {
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
