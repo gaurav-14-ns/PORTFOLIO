@@ -476,7 +476,17 @@ if(months<0){years--;months+=12;}
 document.getElementById("totalExp").textContent=`${years} years ${months} months`;
 </script>
 
+<script>
+/* --- FORCE LOAD AT TOP (FINAL FIX) --- */
+window.addEventListener("load", () => {
+  setTimeout(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  }, 0);
+});
+</script>
+
 </body>
 </html>
+
 
 
