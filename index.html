@@ -1,268 +1,316 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Gaurav — Portfolio</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gaurav — Data Analytics Portfolio</title>
 
-<style>
-:root{
-  --bg:#0f172a;--text:#e5e7eb;--muted:#9ca3af;
-  --card:#0b1223;--border:#1f2937;
-}
-html,body{margin:0;padding:0}
-body{
-  font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;
-  background:var(--bg);color:var(--text);
-}
-.container{max-width:1080px;margin:auto;padding:0 1.25rem}
-section{padding:2rem 0}
-h2{margin-bottom:1rem}
+  <style>
+    :root {
+      --bg: #0f172a;
+      --panel: #111827;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --accent: #22c55e;
+      --card: #0b1223;
+      --border: #1f2937;
+    }
+    .light {
+      --bg: #f8fafc;
+      --panel: #ffffff;
+      --text: #0f172a;
+      --muted: #475569;
+      --accent: #0ea5e9;
+      --card: #ffffff;
+      --border: #e2e8f0;
+    }
 
-.card{
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:.75rem;
-  padding:1rem;
-}
+    html, body { margin:0; padding:0; scroll-behavior:smooth; }
+    body {
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
 
-/* ---------- ACCORDION ---------- */
-.accordion-item{border-bottom:1px solid var(--border)}
-.accordion-header{
-  width:100%;background:none;border:none;
-  padding:1rem;font-size:1.05rem;
-  font-weight:600;color:var(--text);
-  text-align:left;cursor:pointer;
-}
-.accordion-body{
-  max-height:0;overflow:hidden;
-  transition:max-height .3s ease;
-  padding:0 1rem;
-}
+    a { color: var(--accent); text-decoration:none; }
+    a:hover { text-decoration:underline; }
 
-/* ---------- GALLERY ---------- */
-.project-gallery{
-  display:flex;gap:.5rem;overflow-x:auto;
-}
-.project-gallery img{
-  max-height:280px;
-  border-radius:.5rem;
-  border:1px solid var(--border);
-  cursor:pointer;
-}
+    .container { max-width:1080px; margin:0 auto; padding:0 1.25rem; }
 
-/* ---------- MODAL ---------- */
-.modal{
-  position:fixed;inset:0;
-  background:rgba(0,0,0,.95);
-  display:none;z-index:9999;
-}
-.modal-content{
-  height:100%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  overflow:hidden;
-}
-.modal-track{
-  display:flex;
-  height:100%;
-  transition:transform .35s ease;
-}
-.modal-slide{
-  flex:0 0 100%;
-  height:100%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-.modal-slide img{
-  max-width:100%;
-  max-height:100%;
-  object-fit:contain;
-  touch-action:none;
-}
+    header {
+      position:sticky; top:0; z-index:50;
+      backdrop-filter:blur(8px);
+      background: color-mix(in oklab, var(--bg) 85%, transparent);
+      border-bottom:1px solid var(--border);
+    }
 
-/* Close */
-.close{
-  position:absolute;top:16px;right:20px;
-  font-size:36px;color:#fff;
-  cursor:pointer;z-index:10;
-}
+    .nav { display:flex; justify-content:space-between; align-items:center; height:64px; }
+    .brand { display:flex; align-items:center; gap:.75rem; font-weight:700; }
+    .avatar {
+      width:36px; height:36px; border-radius:50%;
+      background:var(--accent); color:#fff;
+      display:grid; place-items:center; font-weight:800;
+    }
 
-/* Desktop arrows */
-.nav-arrow{
-  position:absolute;top:50%;
-  transform:translateY(-50%);
-  font-size:48px;color:#fff;
-  cursor:pointer;
-  padding:10px;
-  user-select:none;
-  z-index:10;
-}
-.nav-arrow.left{left:10px}
-.nav-arrow.right{right:10px}
+    .nav-links { display:flex; gap:1rem; }
+    .nav-links a { padding:.5rem .75rem; border-radius:.5rem; }
+    .nav-links a:hover { background:var(--panel); }
 
-/* Hide arrows on touch devices */
-@media (hover:none){
-  .nav-arrow{display:none}
-}
-</style>
+    .menu-toggle { display:none; font-size:1.5rem; cursor:pointer; }
+
+    .btn {
+      border:1px solid var(--border);
+      background:var(--panel);
+      color:var(--text);
+      padding:.5rem .75rem;
+      border-radius:.5rem;
+      cursor:pointer;
+    }
+    .btn.primary { background:var(--accent); color:#fff; border:none; }
+
+    section { padding:2.5rem 0; }
+    h2 { margin-bottom:1rem; }
+
+    .hero {
+      padding:4rem 0 2rem;
+      max-width:820px;
+    }
+
+    .badge {
+      display:inline-block;
+      background:var(--accent);
+      color:#fff;
+      padding:.25rem .5rem;
+      border-radius:.375rem;
+      font-size:.85rem;
+      margin-bottom:.75rem;
+    }
+
+    .card {
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:.75rem;
+      padding:1.25rem;
+      margin-bottom:1rem;
+    }
+
+    .skills { display:flex; flex-wrap:wrap; gap:.5rem; }
+    .chip {
+      border:1px solid var(--border);
+      padding:.25rem .5rem;
+      border-radius:.5rem;
+      color:var(--muted);
+      font-size:.9rem;
+    }
+
+    .grid-2 { display:grid; grid-template-columns:repeat(2,1fr); gap:1rem; }
+
+    /* Accordion */
+    .accordion-item { border-bottom:1px solid var(--border); }
+    .accordion-header {
+      background:none; border:none; width:100%;
+      padding:1rem; font-size:1rem;
+      color:var(--text); text-align:left;
+      cursor:pointer; font-weight:600;
+      display:flex; justify-content:space-between;
+    }
+    .accordion-header::after { content:"▸"; transition:.2s; }
+    .accordion-header.active::after { transform:rotate(90deg); }
+    .accordion-body {
+      max-height:0; overflow:hidden;
+      transition:max-height .3s ease;
+      padding:0 1rem;
+    }
+
+    footer {
+      border-top:1px solid var(--border);
+      padding:2rem 0;
+      color:var(--muted);
+    }
+
+    @media(max-width:900px){
+      .grid-2 { grid-template-columns:1fr; }
+    }
+    @media(max-width:768px){
+      .menu-toggle{display:block;}
+      .nav-links{display:none; flex-direction:column; width:100%; margin-top:1rem;}
+      .nav-links.active{display:flex;}
+    }
+  </style>
 </head>
 
 <body>
 
+<header>
+  <div class="nav container">
+    <div class="brand">
+      <div class="avatar">G</div>
+      <div>Gaurav</div>
+    </div>
+    <div class="menu-toggle">☰</div>
+    <nav class="nav-links">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#experience">Experience</a>
+      <a href="#credentials">Credentials</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <button class="btn" id="theme">Toggle theme</button>
+  </div>
+</header>
+
 <main class="container">
-<section id="projects">
-<h2>Projects</h2>
 
-<div class="accordion">
+  <!-- HERO -->
+  <section class="hero">
+    <span class="badge">Open to Data Analyst / Business Analyst roles</span>
+    <h1>Turning raw data into decisions that move the business.</h1>
+    <p>
+      I build end-to-end analytics systems using Python, SQL, Power BI, Excel and Machine Learning —
+      focused on KPIs, forecasting, churn, pricing and decision support.
+    </p>
+    <a class="btn primary" href="#projects">View Projects</a>
+  </section>
 
-<div class="accordion-item">
-<button class="accordion-header">SaaS Revenue & Retention Analytics</button>
-<div class="accordion-body">
-<p>Lifecycle churn, cohorts, what-if revenue simulation.</p>
-<div class="project-gallery">
-<img src="SaaS-revenue-retention-analytics/images/page1_growth_command_center.png">
-<img src="SaaS-revenue-retention-analytics/images/page2_retention_intelligence.png">
-<img src="SaaS-revenue-retention-analytics/images/page3_retention_simulator.png">
-</div>
-</div>
-</div>
+  <!-- ABOUT -->
+  <section id="about">
+    <h2>About</h2>
+    <div class="card">
+      <p>
+        I combine a background in project engineering and MIS reporting with modern
+        data analytics. My work focuses on converting operational and transactional
+        data into structured insights that leadership can act on.
+      </p>
+    </div>
+  </section>
 
-<div class="accordion-item">
-<button class="accordion-header">Pricing & Promotion Impact Simulator</button>
-<div class="accordion-body">
-<p>Scenario-based pricing impact modeling.</p>
-<div class="project-gallery">
-<img src="Pricing-and-Promotion-Impact-Simulator/images/page1a.png">
-<img src="Pricing-and-Promotion-Impact-Simulator/images/page1b.png">
-<img src="Pricing-and-Promotion-Impact-Simulator/images/page1c.png">
-</div>
-</div>
-</div>
+  <!-- SKILLS -->
+  <section id="skills">
+    <h2>Skills</h2>
+    <div class="card">
+      <p><strong>Core Analytics</strong></p>
+      <div class="skills">
+        <span class="chip">Python</span><span class="chip">SQL</span>
+        <span class="chip">MySQL</span><span class="chip">Power BI</span>
+        <span class="chip">Excel</span><span class="chip">Machine Learning</span>
+      </div>
+      <p style="margin-top:1rem;"><strong>Techniques</strong></p>
+      <div class="skills">
+        <span class="chip">Churn Analysis</span><span class="chip">Cohort Analysis</span>
+        <span class="chip">Forecasting</span><span class="chip">What-If Modeling</span>
+        <span class="chip">KPI Design</span>
+      </div>
+    </div>
+  </section>
 
-</div>
-</section>
+  <!-- PROJECTS -->
+  <section id="projects">
+    <h2>Projects</h2>
+
+    <div class="card">
+      <h3>SaaS Revenue & Retention Analytics</h3>
+      <p><strong>Business Question:</strong> Where is revenue being lost due to churn?</p>
+      <ul>
+        <li>Generated lifecycle data using Python</li>
+        <li>Modeled subscriptions & churn in MySQL</li>
+        <li>Built cohort retention and what-if revenue simulations</li>
+      </ul>
+      <p><strong>Tools:</strong> Python, MySQL, Power BI</p>
+    </div>
+
+    <div class="card">
+      <h3>Pricing & Promotion Impact Simulator</h3>
+      <p><strong>Business Question:</strong> How do discounts & marketing spends impact profit?</p>
+      <ul>
+        <li>Simulated pricing scenarios</li>
+        <li>Built ML-driven impact forecasts</li>
+        <li>Designed interactive decision dashboards</li>
+      </ul>
+      <p><strong>Tools:</strong> Python, ML, Power BI</p>
+    </div>
+
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <h2>Experience</h2>
+    <div class="grid-2">
+      <div class="card">
+        <h3>Project Engineer — NEDFi</h3>
+        <ul>
+          <li>MIS reporting & performance tracking of Ministry of Development of North Easter Region (MDoNER) funded projects</li>
+          <li>Data-driven compliance & inspection analysis</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Assistant Engineer — Alliance Engineers and Consultants Pvt. Ltd.</h3>
+        <ul>
+          <li>DPR analytics & economic evaluation of Assam Resilient Rural Bridge Program (ARRBP)</li>
+          <li>Large structured datasets for infrastructure planning</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- CERTIFICATES & INTERNSHIPS -->
+  <section id="credentials">
+    <h2>Credentials</h2>
+
+    <div class="accordion-item">
+      <button class="accordion-header">Certifications</button>
+      <div class="accordion-body">
+        <ul>
+          <li>Data Analytics</li>
+          <li>AutoCAD</li>
+          <li>Primavera P-6</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <button class="accordion-header">Internships</button>
+      <div class="accordion-body">
+        <ul>
+          <li>APWD — Infrastructure & reporting</li>
+          <li>Adani — P2P Project exposure</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <h2>Contact</h2>
+    <div class="card">
+      <p>Email: <a href="mailto:gauravniwassarma101@gmail.com">gauravniwassarma101@gmail.com</a></p>
+      <p>LinkedIn: <a href="https://www.linkedin.com/in/gns7cr" target="_blank">linkedin.com/in/gns7cr</a></p>
+      <p>GitHub: <a href="https://github.com/gaurav-14-ns" target="_blank">github.com/gaurav-14-ns</a></p>
+    </div>
+  </section>
+
 </main>
 
-<!-- MODAL -->
-<div class="modal" id="modal">
-  <span class="close" id="close">&times;</span>
-  <div class="nav-arrow left" id="prev">&#10094;</div>
-  <div class="nav-arrow right" id="next">&#10095;</div>
-
-  <div class="modal-content">
-    <div class="modal-track" id="track"></div>
-  </div>
-</div>
+<footer>
+  <div class="container">© <span id="year"></span> Gaurav Niwas Sarma</div>
+</footer>
 
 <script>
-/* ---------- ACCORDION ---------- */
-document.querySelectorAll(".accordion-header").forEach(h=>{
-  h.onclick=()=>{
-    document.querySelectorAll(".accordion-body").forEach(b=>{
-      if(b!==h.nextElementSibling)b.style.maxHeight=null;
-    });
-    const body=h.nextElementSibling;
-    body.style.maxHeight=body.style.maxHeight?null:body.scrollHeight+"px";
-  };
-});
+  document.getElementById("year").textContent = new Date().getFullYear();
+  document.getElementById("theme").onclick = () =>
+    document.body.classList.toggle("light");
 
-/* ---------- MODAL ENGINE ---------- */
-const modal=document.getElementById("modal");
-const track=document.getElementById("track");
-const closeBtn=document.getElementById("close");
-const prevBtn=document.getElementById("prev");
-const nextBtn=document.getElementById("next");
+  document.querySelector(".menu-toggle").onclick = () =>
+    document.querySelector(".nav-links").classList.toggle("active");
 
-let slides=[], index=0;
-let slideWidth=0;
-
-let scale=1, dx=0, dy=0;
-
-document.querySelectorAll(".project-gallery").forEach(gallery=>{
-  const imgs=[...gallery.querySelectorAll("img")];
-  imgs.forEach((img,i)=>{
-    img.onclick=()=>openModal(imgs.map(x=>x.src),i);
+  document.querySelectorAll(".accordion-header").forEach(h => {
+    h.onclick = () => {
+      h.classList.toggle("active");
+      const b = h.nextElementSibling;
+      b.style.maxHeight = b.style.maxHeight ? null : b.scrollHeight + "px";
+    };
   });
-});
-
-function openModal(images,start){
-  slides=images;
-  index=start;
-  track.innerHTML="";
-  images.forEach(src=>{
-    const slide=document.createElement("div");
-    slide.className="modal-slide";
-    const img=document.createElement("img");
-    img.src=src;
-    slide.appendChild(img);
-    track.appendChild(slide);
-    enableZoom(img);
-  });
-  modal.style.display="block";
-  slideWidth=modal.clientWidth;
-  update();
-}
-
-function update(){
-  resetZoom();
-  track.style.transform=`translateX(-${index*slideWidth}px)`;
-}
-
-function closeModal(){
-  modal.style.display="none";
-}
-
-prevBtn.onclick=()=>{if(index>0){index--;update()}};
-nextBtn.onclick=()=>{if(index<slides.length-1){index++;update()}};
-
-document.onkeydown=e=>{
-  if(modal.style.display!=="block")return;
-  if(e.key==="Escape")closeModal();
-  if(e.key==="ArrowLeft"&&index>0){index--;update()}
-  if(e.key==="ArrowRight"&&index<slides.length-1){index++;update()}
-};
-
-modal.onclick=e=>{if(e.target===modal)closeModal()};
-closeBtn.onclick=closeModal;
-
-window.addEventListener("resize",()=>{
-  if(modal.style.display==="block"){
-    slideWidth=modal.clientWidth;
-    update();
-  }
-});
-
-/* ---------- ZOOM + PAN ---------- */
-function resetZoom(){
-  scale=1;dx=0;dy=0;
-  document.querySelectorAll(".modal-slide img").forEach(img=>{
-    img.style.transform="scale(1)";
-  });
-}
-
-function enableZoom(img){
-  let startX=0,startY=0;
-  img.onwheel=e=>{
-    e.preventDefault();
-    scale+=e.deltaY*-0.001;
-    scale=Math.min(Math.max(1,scale),4);
-    img.style.transform=`scale(${scale}) translate(${dx}px,${dy}px)`;
-  };
-  img.onpointerdown=e=>{
-    img.setPointerCapture(e.pointerId);
-    startX=e.clientX-dx;
-    startY=e.clientY-dy;
-  };
-  img.onpointermove=e=>{
-    if(scale===1)return;
-    dx=e.clientX-startX;
-    dy=e.clientY-startY;
-    img.style.transform=`scale(${scale}) translate(${dx}px,${dy}px)`;
-  };
-}
 </script>
 
 </body>
