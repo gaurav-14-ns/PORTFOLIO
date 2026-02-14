@@ -10,10 +10,6 @@
   --bg:#0f172a;--panel:#111827;--text:#e5e7eb;--muted:#9ca3af;
   --accent:#22c55e;--card:#0b1223;--border:#1f2937;
 }
-.light{
-  --bg:#f8fafc;--panel:#fff;--text:#0f172a;--muted:#475569;
-  --accent:#0ea5e9;--card:#fff;--border:#e2e8f0;
-}
 html,body{margin:0;padding:0}
 body{
   font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;
@@ -22,98 +18,116 @@ body{
 .container{max-width:1080px;margin:auto;padding:0 1.25rem}
 section{padding:2rem 0}
 h2{margin-bottom:1rem}
-a{color:var(--accent);text-decoration:none}
 
 .card{
-  background:var(--card);border:1px solid var(--border);
-  border-radius:.75rem;padding:1rem
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:.75rem;
+  padding:1rem;
 }
 
-header{
-  position:sticky;top:0;z-index:50;
-  backdrop-filter:blur(8px);
-  background:color-mix(in oklab,var(--bg) 85%,transparent);
-  border-bottom:1px solid var(--border)
-}
-.nav{display:flex;justify-content:space-between;align-items:center;height:64px}
-.menu-toggle{display:none;font-size:1.5rem;cursor:pointer}
-
-.nav-links{display:flex;gap:1rem}
-.nav-links a{color:var(--text);padding:.5rem;border-radius:.5rem}
-.nav-links a:hover{background:var(--panel)}
-
-@media(max-width:768px){
-  .menu-toggle{display:block}
-  .nav-links{display:none;flex-direction:column;width:100%}
-  .nav-links.active{display:flex}
-}
-
+/* ---------- ACCORDION ---------- */
 .accordion-item{border-bottom:1px solid var(--border)}
 .accordion-header{
-  width:100%;background:none;border:none;
-  padding:1rem;font-size:1.05rem;font-weight:600;
-  color:var(--text);cursor:pointer;text-align:left;
+  width:100%;
+  background:none;
+  border:none;
+  padding:1rem;
+  font-size:1.05rem;
+  font-weight:600;
+  color:var(--text);
+  text-align:left;
+  cursor:pointer;
 }
 .accordion-body{
-  max-height:0;overflow:hidden;
-  transition:max-height .3s ease;padding:0 1rem
+  max-height:0;
+  overflow:hidden;
+  transition:max-height .3s ease;
+  padding:0 1rem;
 }
 
+/* ---------- GALLERY ---------- */
 .project-gallery{
-  display:flex;gap:.5rem;overflow-x:auto;
-  scroll-snap-type:x mandatory
+  display:flex;
+  gap:.5rem;
+  overflow-x:auto;
 }
 .project-gallery img{
-  max-height:280px;border-radius:.5rem;
+  max-height:280px;
+  border-radius:.5rem;
   border:1px solid var(--border);
-  scroll-snap-align:start;cursor:pointer
+  cursor:pointer;
 }
-.project-gallery::-webkit-scrollbar{display:none}
 
-.swipe-hint{font-size:.85rem;color:var(--muted);text-align:right}
-
-/* ===== MODAL ===== */
+/* ---------- MODAL ---------- */
 .modal{
-  position:fixed;inset:0;
+  position:fixed;
+  inset:0;
   background:rgba(0,0,0,.95);
-  display:none;z-index:9999;
+  display:none;
+  z-index:9999;
+}
+.modal-content{
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  position:relative;
 }
 .modal-track{
-  display:flex;height:100%;
-  overflow-x:auto;
-  scroll-snap-type:x mandatory;
-  -webkit-overflow-scrolling:touch;
+  display:flex;
+  height:100%;
+  transition:transform .35s ease;
 }
-.modal-track::-webkit-scrollbar{display:none}
 .modal-slide{
-  min-width:100%;height:100%;
-  display:flex;align-items:center;justify-content:center;
-  scroll-snap-align:center;
+  min-width:100vw;
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
 .modal-slide img{
-  max-width:100%;max-height:100%;
+  max-width:100%;
+  max-height:100%;
   object-fit:contain;
-  touch-action:pan-x pan-y pinch-zoom;
+  touch-action:none;
 }
+
+/* Close */
 .close{
-  position:absolute;top:16px;right:20px;
-  font-size:36px;color:#fff;cursor:pointer;z-index:10
+  position:absolute;
+  top:16px;
+  right:20px;
+  font-size:36px;
+  color:#fff;
+  cursor:pointer;
+  z-index:10;
+}
+
+/* Desktop arrows */
+.nav-arrow{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  font-size:48px;
+  color:#fff;
+  cursor:pointer;
+  padding:10px;
+  user-select:none;
+  z-index:10;
+}
+.nav-arrow.left{left:10px}
+.nav-arrow.right{right:10px}
+
+/* Hide arrows on touch devices */
+@media (hover:none){
+  .nav-arrow{display:none}
 }
 </style>
 </head>
 
 <body>
-
-<header>
-  <div class="nav container">
-    <strong>Gaurav</strong>
-    <div class="menu-toggle">☰</div>
-    <nav class="nav-links">
-      <a href="#projects">Projects</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </div>
-</header>
 
 <main class="container">
 
@@ -125,73 +139,75 @@ header{
 <div class="accordion-item">
 <button class="accordion-header">SaaS Revenue & Retention Analytics</button>
 <div class="accordion-body">
-<p>Lifecycle churn, retention cohorts, what-if revenue simulation.</p>
+<p>Lifecycle churn, cohorts, what-if revenue simulation.</p>
 <div class="project-gallery">
 <img src="SaaS-revenue-retention-analytics/images/page1_growth_command_center.png">
 <img src="SaaS-revenue-retention-analytics/images/page2_retention_intelligence.png">
 <img src="SaaS-revenue-retention-analytics/images/page3_retention_simulator.png">
 </div>
-<p class="swipe-hint">swipe →</p>
 </div>
 </div>
 
 <div class="accordion-item">
-<button class="accordion-header">Pricing & Promotion Simulator</button>
+<button class="accordion-header">Pricing & Promotion Impact Simulator</button>
 <div class="accordion-body">
-<p>Scenario-based pricing & discount impact modeling.</p>
+<p>Scenario-based pricing and discount impact.</p>
 <div class="project-gallery">
 <img src="Pricing-and-Promotion-Impact-Simulator/images/page1a.png">
 <img src="Pricing-and-Promotion-Impact-Simulator/images/page1b.png">
 <img src="Pricing-and-Promotion-Impact-Simulator/images/page1c.png">
 </div>
-<p class="swipe-hint">swipe →</p>
 </div>
 </div>
 
-</div>
-</section>
-
-<section id="contact">
-<h2>Contact</h2>
-<div class="card">
-<p>Email: <a href="mailto:gauravniwassarma101@gmail.com">gauravniwassarma101@gmail.com</a></p>
-<p>GitHub: <a href="https://github.com/gaurav-14-ns">github.com/gaurav-14-ns</a></p>
 </div>
 </section>
 
 </main>
 
 <!-- MODAL -->
-<div id="imgModal" class="modal">
-<span class="close">&times;</span>
-<div class="modal-track" id="modalTrack"></div>
+<div class="modal" id="modal">
+  <span class="close" id="close">&times;</span>
+  <div class="nav-arrow left" id="prev">&#10094;</div>
+  <div class="nav-arrow right" id="next">&#10095;</div>
+
+  <div class="modal-content">
+    <div class="modal-track" id="track"></div>
+  </div>
 </div>
 
 <script>
-/* Accordion */
+/* ---------- ACCORDION ---------- */
 document.querySelectorAll(".accordion-header").forEach(h=>{
   h.onclick=()=>{
     document.querySelectorAll(".accordion-body").forEach(b=>{
-      if(b!==h.nextElementSibling)b.style.maxHeight=null
+      if(b!==h.nextElementSibling)b.style.maxHeight=null;
     });
     const body=h.nextElementSibling;
     body.style.maxHeight=body.style.maxHeight?null:body.scrollHeight+"px";
   };
 });
 
-/* Modal Gallery */
-const modal=document.getElementById("imgModal");
-const track=document.getElementById("modalTrack");
-const closeBtn=document.querySelector(".close");
+/* ---------- MODAL ENGINE ---------- */
+const modal=document.getElementById("modal");
+const track=document.getElementById("track");
+const closeBtn=document.getElementById("close");
+const prevBtn=document.getElementById("prev");
+const nextBtn=document.getElementById("next");
+
+let slides=[], index=0;
+let scale=1, startX=0, startY=0, dx=0, dy=0;
 
 document.querySelectorAll(".project-gallery").forEach(gallery=>{
   const imgs=[...gallery.querySelectorAll("img")];
   imgs.forEach((img,i)=>{
-    img.onclick=()=>openGallery(imgs.map(x=>x.src),i);
+    img.onclick=()=>openModal(imgs.map(x=>x.src),i);
   });
 });
 
-function openGallery(images,start){
+function openModal(images,start){
+  slides=images;
+  index=start;
   track.innerHTML="";
   images.forEach(src=>{
     const slide=document.createElement("div");
@@ -200,14 +216,53 @@ function openGallery(images,start){
     img.src=src;
     slide.appendChild(img);
     track.appendChild(slide);
+    enableZoom(img);
   });
+  update();
   modal.style.display="block";
-  requestAnimationFrame(()=>track.scrollLeft=start*window.innerWidth);
 }
 
-closeBtn.onclick=()=>modal.style.display="none";
-modal.onclick=e=>{if(e.target===modal)modal.style.display="none"};
-document.onkeydown=e=>{if(e.key==="Escape")modal.style.display="none"};
+function update(){
+  track.style.transform=`translateX(-${index*window.innerWidth}px)`;
+}
+
+function closeModal(){modal.style.display="none"}
+
+prevBtn.onclick=()=>{if(index>0){index--;update()}};
+nextBtn.onclick=()=>{if(index<slides.length-1){index++;update()}};
+
+document.onkeydown=e=>{
+  if(modal.style.display!=="block")return;
+  if(e.key==="Escape")closeModal();
+  if(e.key==="ArrowLeft"&&index>0){index--;update()}
+  if(e.key==="ArrowRight"&&index<slides.length-1){index++;update()}
+};
+
+modal.onclick=e=>{if(e.target===modal)closeModal()};
+closeBtn.onclick=closeModal;
+
+/* ---------- ZOOM + PAN ---------- */
+function enableZoom(img){
+  let lastX=0,lastY=0;
+  img.onwheel=e=>{
+    e.preventDefault();
+    scale+=e.deltaY*-0.001;
+    scale=Math.min(Math.max(1,scale),4);
+    img.style.transform=`scale(${scale}) translate(${dx}px,${dy}px)`;
+  };
+  img.onpointerdown=e=>{
+    img.setPointerCapture(e.pointerId);
+    startX=e.clientX-dx;
+    startY=e.clientY-dy;
+  };
+  img.onpointermove=e=>{
+    if(e.pressure===0||scale===1)return;
+    dx=e.clientX-startX;
+    dy=e.clientY-startY;
+    img.style.transform=`scale(${scale}) translate(${dx}px,${dy}px)`;
+  };
+  img.onpointerup=()=>{};
+}
 </script>
 
 </body>
