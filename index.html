@@ -1,112 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Gaurav — Portfolio</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gaurav — Portfolio</title>
 
-  <style>
-    :root {
-      --bg: #0f172a;
-      --panel: #111827;
-      --text: #e5e7eb;
-      --muted: #9ca3af;
-      --accent: #22c55e;
-      --card: #0b1223;
-      --border: #1f2937;
-    }
-    .light {
-      --bg: #f8fafc;
-      --panel: #ffffff;
-      --text: #0f172a;
-      --muted: #475569;
-      --accent: #0ea5e9;
-      --card: #ffffff;
-      --border: #e2e8f0;
-    }
-    html, body { margin:0; padding:0; scroll-behavior:smooth; }
-    body {
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial;
-      background: var(--bg);
-      color: var(--text);
-      line-height: 1.6;
-    }
-    a { color: var(--accent); text-decoration:none; }
-    .container { max-width:1080px; margin:0 auto; padding:0 1.25rem; }
-    header { position:sticky; top:0; z-index:50; backdrop-filter:blur(8px); border-bottom:1px solid var(--border); background:rgba(15,23,42,.9); }
+<style>
+:root{
+  --bg:#0f172a;--panel:#111827;--text:#e5e7eb;--muted:#9ca3af;
+  --accent:#22c55e;--card:#0b1223;--border:#1f2937;
+}
+.light{
+  --bg:#f8fafc;--panel:#fff;--text:#0f172a;--muted:#475569;
+  --accent:#0ea5e9;--card:#fff;--border:#e2e8f0;
+}
+html,body{margin:0;font-family:system-ui;background:var(--bg);color:var(--text);}
+.container{max-width:1080px;margin:auto;padding:0 1.25rem;}
+header{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--border);z-index:10}
+.nav{display:flex;justify-content:space-between;align-items:center;height:64px}
+.nav-links{display:flex;gap:1rem}
+.nav-links a{color:var(--text);text-decoration:none}
+.menu-toggle{display:none;cursor:pointer}
+section{padding:2rem 0}
+.card{background:var(--card);border:1px solid var(--border);border-radius:.75rem;padding:1rem}
+.skills{display:flex;flex-wrap:wrap;gap:.5rem}
+.chip{border:1px solid var(--border);padding:.25rem .5rem;border-radius:.5rem}
 
-    .nav { display:flex; justify-content:space-between; align-items:center; height:64px; }
-    .brand { display:flex; gap:.75rem; font-weight:700; }
-    .avatar { width:36px; height:36px; border-radius:50%; background:var(--accent); display:grid; place-items:center; color:#fff; }
+/* ACCORDION */
+.accordion-item{border-bottom:1px solid var(--border)}
+.accordion-header{
+  width:100%;background:none;border:none;padding:1rem;
+  display:flex;justify-content:space-between;
+  font-size:1.05rem;color:var(--text);cursor:pointer
+}
+.accordion-header::after{content:"▸";transition:.2s}
+.accordion-header.active::after{transform:rotate(90deg)}
+.accordion-body{max-height:0;overflow:hidden;transition:max-height .3s ease}
 
-    .nav-links { display:flex; gap:1rem; }
-    .nav-links a { padding:.5rem .75rem; border-radius:.5rem; color:var(--text); }
-    .nav-links a:hover { background:var(--panel); }
+/* IMAGE GALLERY */
+.project-gallery{display:flex;gap:.5rem;overflow-x:auto}
+.project-gallery img{
+  max-height:260px;border-radius:.5rem;border:1px solid var(--border);
+  cursor:pointer
+}
 
-    .menu-toggle { display:none; font-size:1.5rem; cursor:pointer; }
-    .btn { padding:.5rem .75rem; border-radius:.5rem; border:1px solid var(--border); background:var(--panel); color:var(--text); cursor:pointer; }
-    .btn.primary { background:var(--accent); border:none; color:#fff; }
+/* MODAL */
+.modal{
+  display:none;position:fixed;inset:0;
+  background:rgba(0,0,0,.9);
+  z-index:9999;align-items:center;justify-content:center
+}
+.modal img{max-width:95vw;max-height:90vh;border-radius:8px}
+.close{
+  position:absolute;top:20px;right:30px;
+  font-size:40px;color:#fff;cursor:pointer
+}
+.modal-nav span{
+  position:absolute;top:50%;transform:translateY(-50%);
+  font-size:56px;color:#fff;cursor:pointer;
+  padding:16px 20px;border-radius:50%;
+  background:rgba(0,0,0,.35)
+}
+.modal-nav span:hover{background:rgba(0,0,0,.6)}
+.prev{left:20px}.next{right:20px}
 
-    section { padding:2rem 0; }
-    .card { background:var(--card); border:1px solid var(--border); border-radius:.75rem; padding:1rem; }
-    .skills { display:flex; flex-wrap:wrap; gap:.5rem; }
-    .chip { padding:.25rem .5rem; border-radius:.5rem; border:1px solid var(--border); }
-
-    /* ACCORDION */
-    .accordion-item { border-bottom:1px solid var(--border); }
-    .accordion-header {
-      width:100%; background:none; border:none; padding:1rem;
-      font-size:1.05rem; font-weight:600; color:var(--text);
-      display:flex; justify-content:space-between; cursor:pointer;
-    }
-    .accordion-header::after { content:"▸"; transition:.25s; }
-    .accordion-header.active::after { transform:rotate(90deg); }
-    .accordion-body { max-height:0; overflow:hidden; transition:max-height .3s ease; padding:0 1rem; }
-
-    /* GALLERY */
-    .project-gallery { display:flex; gap:.5rem; overflow-x:auto; }
-    .project-gallery img {
-      max-height:280px; border-radius:.5rem;
-      border:1px solid var(--border); cursor:pointer;
-    }
-
-    /* MODAL */
-    .modal {
-      display:none; position:fixed; inset:0;
-      background:rgba(0,0,0,.9); z-index:9999;
-      align-items:center; justify-content:center;
-    }
-    .modal img { max-width:95vw; max-height:90vh; object-fit:contain; }
-    .close {
-      position:absolute; top:20px; right:30px;
-      font-size:40px; color:#fff; cursor:pointer;
-    }
-    .modal-nav span {
-      position:absolute; top:50%; font-size:40px;
-      color:#fff; cursor:pointer; user-select:none;
-    }
-    .prev { left:20px; }
-    .next { right:20px; }
-
-    @media(max-width:768px){
-      .menu-toggle{display:block;}
-      .nav-links{display:none; flex-direction:column;}
-      .nav-links.active{display:flex;}
-    }
-  </style>
+@media(max-width:768px){
+  .nav-links{display:none;flex-direction:column}
+  .menu-toggle{display:block}
+}
+</style>
 </head>
 
 <body>
 
 <header>
   <div class="nav container">
-    <div class="brand"><div class="avatar">G</div>Gaurav</div>
+    <strong>Gaurav</strong>
     <div class="menu-toggle">☰</div>
     <nav class="nav-links">
       <a href="#projects">Projects</a>
       <a href="#contact">Contact</a>
     </nav>
-    <button class="btn" id="theme">Toggle theme</button>
   </div>
 </header>
 
@@ -120,19 +94,23 @@
 <div class="accordion-item">
 <button class="accordion-header">Sales Revenue Dashboard</button>
 <div class="accordion-body">
+<p>Python | MySQL | Power BI</p>
 <div class="project-gallery">
-<img src="Sales-Revenue-Dashboard/images/page1.png" onclick="openModal(0)">
-<img src="Sales-Revenue-Dashboard/images/page2.png" onclick="openModal(1)">
+<img src="Sales-Revenue-Dashboard/images/page1.png">
+<img src="Sales-Revenue-Dashboard/images/page2.png">
+<img src="Sales-Revenue-Dashboard/images/page3.png">
 </div>
 </div>
 </div>
 
 <div class="accordion-item">
-<button class="accordion-header">SaaS Retention Analytics</button>
+<button class="accordion-header">SaaS Revenue & Retention Analytics</button>
 <div class="accordion-body">
+<p>Python | MySQL | Power BI</p>
 <div class="project-gallery">
-<img src="SaaS-revenue-retention-analytics/images/page1_growth_command_center.png" onclick="openModal(2)">
-<img src="SaaS-revenue-retention-analytics/images/page2_retention_intelligence.png" onclick="openModal(3)">
+<img src="SaaS-revenue-retention-analytics/images/page1_growth_command_center.png">
+<img src="SaaS-revenue-retention-analytics/images/page2_retention_intelligence.png">
+<img src="SaaS-revenue-retention-analytics/images/page3_retention_simulator.png">
 </div>
 </div>
 </div>
@@ -140,61 +118,61 @@
 </div>
 </section>
 
+<section id="contact">
+<h2>Contact</h2>
+<div class="card">
+<p>Email: <a href="mailto:gauravniwassarma101@gmail.com">gauravniwassarma101@gmail.com</a></p>
+<p>GitHub: <a href="https://github.com/gaurav-14-ns">github.com/gaurav-14-ns</a></p>
+</div>
+</section>
+
 </main>
 
 <!-- MODAL -->
 <div id="imgModal" class="modal">
-  <span class="close" onclick="closeModal()">&times;</span>
-  <span class="prev" onclick="changeImage(-1)">&#10094;</span>
-  <img id="modalImg">
-  <span class="next" onclick="changeImage(1)">&#10095;</span>
+<span class="close">&times;</span>
+<img id="modalImg">
+<div class="modal-nav">
+<span class="prev">&#10094;</span>
+<span class="next">&#10095;</span>
+</div>
 </div>
 
 <script>
-document.addEventListener("DOMContentLoaded", () => {
-
-  /* THEME */
-  const themeBtn = document.getElementById("theme");
-  themeBtn.onclick = () => document.body.classList.toggle("light");
-
-  /* NAV */
-  const toggle = document.querySelector(".menu-toggle");
-  const navLinks = document.querySelector(".nav-links");
-  toggle.onclick = () => navLinks.classList.toggle("active");
-
-  /* ACCORDION */
-  const headers = document.querySelectorAll(".accordion-header");
-  headers.forEach(h => {
-    h.onclick = () => {
-      headers.forEach(x => {
-        if (x !== h) {
-          x.classList.remove("active");
-          x.nextElementSibling.style.maxHeight = null;
-        }
-      });
-      h.classList.toggle("active");
-      const body = h.nextElementSibling;
-      body.style.maxHeight = h.classList.contains("active") ? body.scrollHeight + "px" : null;
-    };
-  });
-
-  /* MODAL */
-  const modal = document.getElementById("imgModal");
-  const modalImg = document.getElementById("modalImg");
-  const images = document.querySelectorAll(".project-gallery img");
-  let idx = 0;
-
-  window.openModal = i => {
-    idx = i;
-    modalImg.src = images[idx].src;
-    modal.style.display = "flex";
-  };
-  window.closeModal = () => modal.style.display = "none";
-  window.changeImage = step => {
-    idx = (idx + step + images.length) % images.length;
-    modalImg.src = images[idx].src;
+/* ACCORDION */
+document.querySelectorAll(".accordion-header").forEach(h=>{
+  h.onclick=()=>{
+    document.querySelectorAll(".accordion-header").forEach(x=>{
+      if(x!==h){x.classList.remove("active");x.nextElementSibling.style.maxHeight=null}
+    });
+    h.classList.toggle("active");
+    let body=h.nextElementSibling;
+    body.style.maxHeight=h.classList.contains("active")?body.scrollHeight+"px":null;
   };
 });
+
+/* MODAL */
+const modal=document.getElementById("imgModal");
+const modalImg=document.getElementById("modalImg");
+const images=document.querySelectorAll(".project-gallery img");
+let index=0;
+
+images.forEach((img,i)=>{
+  img.onclick=()=>{index=i;modalImg.src=img.src;modal.style.display="flex";}
+});
+document.querySelector(".close").onclick=()=>modal.style.display="none";
+document.querySelector(".prev").onclick=()=>change(-1);
+document.querySelector(".next").onclick=()=>change(1);
+
+function change(step){
+  index=(index+step+images.length)%images.length;
+  modalImg.src=images[index].src;
+}
+
+document.addEventListener("keydown",e=>{
+  if(e.key==="Escape")modal.style.display="none";
+});
+modal.onclick=e=>{if(e.target===modal)modal.style.display="none"};
 </script>
 
 </body>
