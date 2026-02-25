@@ -281,9 +281,9 @@ footer{
     <p>
       I combine a background in project engineering and MIS reporting with modern
       data analytics. I translate operational complexity into structured insights
-      leadership can act on.
+      which leadership can act on.
     </p>
-    <p><strong>Total Professional Experience:</strong> <span id="totalExp"></span> (since 07 Feb 2023)</p>
+    <p><strong>Total Professional Experience:</strong> <span id="totalExp"></span> (since 07-02-2023)</p>
   </div>
 </section>
 
@@ -595,6 +595,25 @@ document.querySelectorAll(".accordion-header").forEach(header=>{
       return;
     }
 
+    /* ===== EXPERIENCE CALCULATION ===== */
+(function calculateExperience() {
+  const start = new Date("2023-02-07");
+  const now = new Date();
+
+  let years = now.getFullYear() - start.getFullYear();
+  let months = now.getMonth() - start.getMonth();
+
+  if (months < 0) {
+    years--;
+    months += 12;
+  }
+
+  const expEl = document.getElementById("totalExp");
+  if (expEl) {
+    expEl.textContent = `${years} years ${months} months`;
+  }
+})();
+
     updateAccordionHeight(body);
 
     body.querySelectorAll("img").forEach(img=>{
@@ -608,3 +627,4 @@ document.querySelectorAll(".accordion-header").forEach(header=>{
 
 </body>
 </html>
+
