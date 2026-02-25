@@ -203,25 +203,41 @@ h2{margin-bottom:1rem;}
   padding:0 1rem;
 }
 
-/* Credentials list refinement */
-.accordion-body li {
-  display: flex;
-  align-items: center;
-  gap: .5rem;
-  flex-wrap: wrap;
-}
-
-.accordion-body .btn {
-  padding: .25rem .5rem;
-  font-size: .8rem;
-}
-
-
+/* Project images (also reused for Credentials images) */
 .project-img{
+  display:block;
   width:100%;
+  height:auto;
   margin-top:.75rem;
   border-radius:.5rem;
   border:1px solid var(--border);
+}
+
+/* --- Credentials: make it stack like Projects (text then image) --- */
+#credentials .accordion-body ul{
+  list-style:none;
+  padding-left:0;
+  margin:0;
+}
+
+#credentials .accordion-body li{
+  display:block;                 /* IMPORTANT: not flex */
+  padding:12px 0;
+  border-bottom:1px solid var(--border);
+}
+
+#credentials .accordion-body li:last-child{
+  border-bottom:none;
+}
+
+#credentials .accordion-body p{
+  margin:.25rem 0;
+}
+
+/* Optional: clickable images feel nice */
+#credentials .accordion-body a.img-link{
+  display:inline-block;
+  width:100%;
 }
 
 footer{
@@ -362,9 +378,9 @@ footer{
 
       <p><strong>Tools:</strong> Python | MySQL | Power BI</p>
 
-      <img class="project-img" src="SaaS-revenue-retention-analytics/images/page1_growth_command_center.png">
-      <img class="project-img" src="SaaS-revenue-retention-analytics/images/page2_retention_intelligence.png">
-      <img class="project-img" src="SaaS-revenue-retention-analytics/images/page3_retention_simulator.png">
+      <img class="project-img" src="SaaS-revenue-retention-analytics/images/page1_growth_command_center.png" alt="SaaS revenue dashboard page 1" loading="lazy">
+      <img class="project-img" src="SaaS-revenue-retention-analytics/images/page2_retention_intelligence.png" alt="SaaS revenue dashboard page 2" loading="lazy">
+      <img class="project-img" src="SaaS-revenue-retention-analytics/images/page3_retention_simulator.png" alt="SaaS revenue dashboard page 3" loading="lazy">
 
     </div>
   </div>
@@ -397,12 +413,12 @@ footer{
 
       <p><strong>Tools:</strong> Python | Machine Learning | Excel | Power BI</p>
 
-      <img class="project-img" src="Pricing-and-Promotion-Impact-Simulator/images/page1a.png">
-      <img class="project-img" src="Pricing-and-Promotion-Impact-Simulator/images/page1b.png">
-      <img class="project-img" src="Pricing-and-Promotion-Impact-Simulator/images/page1c.png">
-      <img class="project-img" src="Pricing-and-Promotion-Impact-Simulator/images/page2a.png">
-      <img class="project-img" src="Pricing-and-Promotion-Impact-Simulator/images/page2b.png">
-      <img class="project-img" src="Pricing-and-Promotion-Impact-Simulator/images/page2c.png">
+      <img class="project-img" src="Pricing-and-Promotion-Impact-Simulator/images/page1a.png" alt="Pricing simulator page 1a" loading="lazy">
+      <img class="project-img" src="Pricing-and-Promotion-Impact-Simulator/images/page1b.png" alt="Pricing simulator page 1b" loading="lazy">
+      <img class="project-img" src="Pricing-and-Promotion-Impact-Simulator/images/page1c.png" alt="Pricing simulator page 1c" loading="lazy">
+      <img class="project-img" src="Pricing-and-Promotion-Impact-Simulator/images/page2a.png" alt="Pricing simulator page 2a" loading="lazy">
+      <img class="project-img" src="Pricing-and-Promotion-Impact-Simulator/images/page2b.png" alt="Pricing simulator page 2b" loading="lazy">
+      <img class="project-img" src="Pricing-and-Promotion-Impact-Simulator/images/page2c.png" alt="Pricing simulator page 2c" loading="lazy">
 
     </div>
   </div>
@@ -437,11 +453,11 @@ footer{
 
       <p><strong>Tools:</strong> Python | Machine Learning | Excel | Power BI</p>
 
-      <img class="project-img" src="Business-Performance-Forecasting-&-Recommendations/images/page1a.png">
-      <img class="project-img" src="Business-Performance-Forecasting-&-Recommendations/images/page1b.png">
-      <img class="project-img" src="Business-Performance-Forecasting-&-Recommendations/images/page1c.png">
-      <img class="project-img" src="Business-Performance-Forecasting-&-Recommendations/images/page2.png">
-      <img class="project-img" src="Business-Performance-Forecasting-&-Recommendations/images/page3.png">
+      <img class="project-img" src="Business-Performance-Forecasting-&-Recommendations/images/page1a.png" alt="Business performance page 1a" loading="lazy">
+      <img class="project-img" src="Business-Performance-Forecasting-&-Recommendations/images/page1b.png" alt="Business performance page 1b" loading="lazy">
+      <img class="project-img" src="Business-Performance-Forecasting-&-Recommendations/images/page1c.png" alt="Business performance page 1c" loading="lazy">
+      <img class="project-img" src="Business-Performance-Forecasting-&-Recommendations/images/page2.png" alt="Business performance page 2" loading="lazy">
+      <img class="project-img" src="Business-Performance-Forecasting-&-Recommendations/images/page3.png" alt="Business performance page 3" loading="lazy">
 
     </div>
   </div>
@@ -472,14 +488,14 @@ footer{
       <ul>
         <li>- Improved revenue visibility and performance tracking.</li>
         <li>- Supported data-driven sales planning and forecasting.</li>
-        <li>-Centralized sales intelligence for management.</li>
+        <li>- Centralized sales intelligence for management.</li>
       </ul>
 
       <p><strong>Tools:</strong> Python | MySQL | Excel | Power BI</p>
 
-      <img class="project-img" src="Sales-Revenue-Dashboard/images/page1.png">
-      <img class="project-img" src="Sales-Revenue-Dashboard/images/page2.png">
-      <img class="project-img" src="Sales-Revenue-Dashboard/images/page3.png">
+      <img class="project-img" src="Sales-Revenue-Dashboard/images/page1.png" alt="Sales revenue page 1" loading="lazy">
+      <img class="project-img" src="Sales-Revenue-Dashboard/images/page2.png" alt="Sales revenue page 2" loading="lazy">
+      <img class="project-img" src="Sales-Revenue-Dashboard/images/page3.png" alt="Sales revenue page 3" loading="lazy">
 
     </div>
   </div>
@@ -519,17 +535,23 @@ footer{
     <button class="accordion-header">Courses</button>
     <div class="accordion-body">
       <ul>
-        <li>          
+        <li>
           <p>Data Analytics</p>
-          <img src="assets/DATA_ANALYTICS_COURSE.png">
+          <a class="img-link" href="assets/DATA_ANALYTICS_COURSE.png" target="_blank">
+            <img class="project-img" src="assets/DATA_ANALYTICS_COURSE.png" alt="Data Analytics course certificate" loading="lazy">
+          </a>
         </li>
         <li>
           <p>AutoCAD</p>
-          <img src="assets/AUTOCAD_COURSE.png">
+          <a class="img-link" href="assets/AUTOCAD_COURSE.png" target="_blank">
+            <img class="project-img" src="assets/AUTOCAD_COURSE.png" alt="AutoCAD course certificate" loading="lazy">
+          </a>
         </li>
-        <li>          
+        <li>
           <p>Primavera P6</p>
-          <img src="assets/PRIMAVERA_P6_COURSE.png">
+          <a class="img-link" href="assets/PRIMAVERA_P6_COURSE.png" target="_blank">
+            <img class="project-img" src="assets/PRIMAVERA_P6_COURSE.png" alt="Primavera P6 course certificate" loading="lazy">
+          </a>
         </li>
       </ul>
     </div>
@@ -539,24 +561,30 @@ footer{
     <button class="accordion-header">Certifications</button>
     <div class="accordion-body">
       <ul>
-        <li>          
+        <li>
           <p><strong>HackerRank - Python (Basic)</strong></p>
           <p>It covers topics like Scaler Types, Operators and Control Flow, Strings, Collections and Iteration, Modularity, Objects and Types and Classes.</p>
-          <img src="assets/PYTHON_CERTIFICATE.png">
+          <a class="img-link" href="assets/PYTHON_CERTIFICATE.png" target="_blank">
+            <img class="project-img" src="assets/PYTHON_CERTIFICATE.png" alt="HackerRank Python Basic certificate" loading="lazy">
+          </a>
         </li>
         <li>
           <p><strong>HackerRank - SQL (Intermediate)</strong></p>
           <p>It includes complex joins, unions and sub-queries.</p>
-          <img src="assets/SQL_CERTIFICATE.png">
+          <a class="img-link" href="assets/SQL_CERTIFICATE.png" target="_blank">
+            <img class="project-img" src="assets/SQL_CERTIFICATE.png" alt="HackerRank SQL Intermediate certificate" loading="lazy">
+          </a>
         </li>
-        <li>          
+        <li>
           <p><strong>HackerRank - Problem Solving (Basic)</strong></p>
           <p>It covers basic topics of Data Structures (such as Arrays, Strings) and Algorithms (such as Sorting and Searching).</p>
-          <img src="assets/PROBLEM_SOLVING_CERTIFICATE.png">
+          <a class="img-link" href="assets/PROBLEM_SOLVING_CERTIFICATE.png" target="_blank">
+            <img class="project-img" src="assets/PROBLEM_SOLVING_CERTIFICATE.png" alt="HackerRank Problem Solving Basic certificate" loading="lazy">
+          </a>
         </li>
       </ul>
     </div>
-  </div>  
+  </div>
 
   <div class="accordion-item">
     <button class="accordion-header">Internships</button>
@@ -564,15 +592,20 @@ footer{
       <ul>
         <li>
           <p><strong>APWD — Infrastructure reporting</strong></p>
-          <img src="assets/AWPD_INTERNSHIP_CERTIFICATE.png">
+          <a class="img-link" href="assets/AWPD_INTERNSHIP_CERTIFICATE.png" target="_blank">
+            <img class="project-img" src="assets/AWPD_INTERNSHIP_CERTIFICATE.png" alt="APWD internship certificate" loading="lazy">
+          </a>
         </li>
         <li>
           <p><strong>Adani — P2P project exposure</strong></p>
-          <img src="assets/ADANI_INTERNSHIP_CERTIFICATE.png">
+          <a class="img-link" href="assets/ADANI_INTERNSHIP_CERTIFICATE.png" target="_blank">
+            <img class="project-img" src="assets/ADANI_INTERNSHIP_CERTIFICATE.png" alt="Adani internship certificate" loading="lazy">
+          </a>
         </li>
       </ul>
     </div>
   </div>
+
 </section>
 
 <section id="contact">
@@ -643,10 +676,3 @@ window.addEventListener("load", () => {
 
 </body>
 </html>
-
-
-
-
-
-
-
