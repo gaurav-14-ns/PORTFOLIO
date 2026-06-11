@@ -190,9 +190,6 @@ header.scrolled{box-shadow:0 4px 30px rgba(212,168,83,.06)}
 /* ── Animated Hamburger ── */
 .menu-toggle{
   display:none;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
   width:40px;
   height:40px;
   cursor:pointer;
@@ -203,20 +200,20 @@ header.scrolled{box-shadow:0 4px 30px rgba(212,168,83,.06)}
   position:relative;
 }
 .menu-toggle .bar{
-  display:block;
+  position:absolute;
+  left:9px;
   width:22px;
   height:2px;
   background:var(--accent);
   border-radius:2px;
   transition:all .3s ease;
-  position:absolute;
 }
-.menu-toggle .bar:nth-child(1){transform:translateY(-7px)}
-.menu-toggle .bar:nth-child(2){transform:translateY(0)}
-.menu-toggle .bar:nth-child(3){transform:translateY(7px)}
-.menu-toggle.active .bar:nth-child(1){transform:rotate(45deg)}
-.menu-toggle.active .bar:nth-child(2){opacity:0;transform:scaleX(0)}
-.menu-toggle.active .bar:nth-child(3){transform:rotate(-45deg)}
+.menu-toggle .bar:nth-child(1){top:13px}
+.menu-toggle .bar:nth-child(2){top:19px}
+.menu-toggle .bar:nth-child(3){top:25px}
+.menu-toggle.active .bar:nth-child(1){top:19px;transform:rotate(45deg)}
+.menu-toggle.active .bar:nth-child(2){opacity:0}
+.menu-toggle.active .bar:nth-child(3){top:19px;transform:rotate(-45deg)}
 
 /* ── Buttons ── */
 .btn{
@@ -405,6 +402,43 @@ footer{
   text-align:center;
 }
 
+/* ── Mobile Overlay (outside header) ── */
+.mobile-overlay{
+  position:fixed;
+  inset:0;
+  z-index:998;
+  background:var(--overlay-bg);
+  -webkit-backdrop-filter:blur(24px);
+  backdrop-filter:blur(24px);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:1rem;
+  opacity:0;
+  pointer-events:none;
+  visibility:hidden;
+  transition:opacity .4s ease,visibility .4s ease;
+}
+.mobile-overlay.active{
+  opacity:1;
+  pointer-events:auto;
+  visibility:visible;
+}
+.mobile-overlay a{
+  font-size:1.25rem;
+  padding:.75rem 1.5rem;
+  border-radius:.6rem;
+  color:var(--muted);
+  opacity:0;
+  transform:translateY(24px);
+  transition:all .4s cubic-bezier(.25,.46,.45,.94);
+}
+.mobile-overlay.active a{opacity:1;transform:translateY(0)}
+.mobile-overlay a:hover,.mobile-overlay a.active{color:var(--accent);background:var(--accent-soft)}
+.mobile-overlay a.active::after{display:none}
+body.no-scroll{overflow:hidden}
+
 /* ── Scroll-to-Top ── */
 #scrollTop{
   position:fixed;
@@ -447,51 +481,16 @@ footer{
 @media(max-width:768px){
   .menu-toggle{display:flex}
 
-  .nav-links{
-    position:fixed;
-    top:0;
-    left:0;
-    right:0;
-    bottom:0;
-    z-index:999;
-    background:var(--overlay-bg);
-    -webkit-backdrop-filter:blur(24px);
-    backdrop-filter:blur(24px);
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    gap:1rem;
-    opacity:0;
-    pointer-events:none;
-    visibility:hidden;
-    transition:opacity .4s ease,visibility .4s ease;
-  }
-  .nav-links.active{
-    opacity:1;
-    pointer-events:auto;
-    visibility:visible;
-  }
-  .nav-links a{
-    font-size:1.25rem;
-    padding:.75rem 1.5rem;
-    border-radius:.6rem;
-    color:var(--muted);
-    opacity:0;
-    transform:translateY(24px);
-    transition:all .4s cubic-bezier(.25,.46,.45,.94);
-  }
-  .nav-links.active a{opacity:1;transform:translateY(0)}
-  .nav-links a:hover,.nav-links a.active{color:var(--accent);background:var(--accent-soft)}
-  .nav-links a.active::after{display:none}
+  /* Hide inline nav, use separate mobile overlay instead */
+  .nav-links{display:none}
 
-  /* Staggered entrance */
-  .nav-links.active a:nth-child(1){transition-delay:.06s}
-  .nav-links.active a:nth-child(2){transition-delay:.12s}
-  .nav-links.active a:nth-child(3){transition-delay:.18s}
-  .nav-links.active a:nth-child(4){transition-delay:.24s}
-  .nav-links.active a:nth-child(5){transition-delay:.30s}
-  .nav-links.active a:nth-child(6){transition-delay:.36s}
+  /* Staggered entrance for mobile overlay links */
+  .mobile-overlay.active a:nth-child(1){transition-delay:.06s}
+  .mobile-overlay.active a:nth-child(2){transition-delay:.12s}
+  .mobile-overlay.active a:nth-child(3){transition-delay:.18s}
+  .mobile-overlay.active a:nth-child(4){transition-delay:.24s}
+  .mobile-overlay.active a:nth-child(5){transition-delay:.30s}
+  .mobile-overlay.active a:nth-child(6){transition-delay:.36s}
 
   .container{padding:0 1.15rem}
   .hero-actions{flex-direction:column}
@@ -535,6 +534,16 @@ footer{
     <button class="btn" id="themeBtn" aria-label="Toggle theme">🌙 Dark</button>
   </div>
 </header>
+
+<!-- Mobile overlay (outside header — clean stacking, no conflicts) -->
+<div class="mobile-overlay" id="mobileOverlay" aria-hidden="true">
+  <a href="#about" data-section>About</a>
+  <a href="#skills" data-section>Skills</a>
+  <a href="#projects" data-section>Projects</a>
+  <a href="#experience" data-section>Experience</a>
+  <a href="#credentials" data-section>Credentials</a>
+  <a href="#contact" data-section>Contact</a>
+</div>
 
 <main class="container">
 
@@ -939,17 +948,21 @@ footer{
 
   /* ── Mobile menu ── */
   const menuToggle = document.querySelector('.menu-toggle');
-  const navLinks = document.querySelector('.nav-links');
+  const mobileOverlay = document.getElementById('mobileOverlay');
   menuToggle.addEventListener('click', function(){
-    const active = navLinks.classList.toggle('active');
+    const active = mobileOverlay.classList.toggle('active');
+    document.body.classList.toggle('no-scroll', active);
     menuToggle.classList.toggle('active', active);
     menuToggle.setAttribute('aria-expanded', active);
+    mobileOverlay.setAttribute('aria-hidden', !active);
   });
-  navLinks.querySelectorAll('a').forEach(function(link){
+  mobileOverlay.querySelectorAll('a').forEach(function(link){
     link.addEventListener('click', function(){
-      navLinks.classList.remove('active');
+      mobileOverlay.classList.remove('active');
+      document.body.classList.remove('no-scroll');
       menuToggle.classList.remove('active');
       menuToggle.setAttribute('aria-expanded', 'false');
+      mobileOverlay.setAttribute('aria-hidden', 'true');
     });
   });
 
@@ -971,7 +984,7 @@ footer{
 
   /* ── Active nav highlight + scroll-to-top reveal ── */
   const sections = document.querySelectorAll('section[id]');
-  const navAnchors = document.querySelectorAll('.nav-links a[data-section]');
+  const navAnchors = document.querySelectorAll('.nav-links a[data-section], .mobile-overlay a[data-section]');
   const scrollTopBtn = document.getElementById('scrollTop');
 
   function onScroll(){
