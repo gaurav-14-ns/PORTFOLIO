@@ -26,7 +26,7 @@ This repository showcases **end-to-end analytics projects** where I transform ra
 
 ## 👨‍💻 About Me
 
-I am a **Data Analyst / Project Engineer** with hands-on experience in:
+I am a **Data Analyst | Business Analyst | MIS Executive** with hands-on experience in:
 - Data analysis and reporting  
 - Forecasting and simulation modeling  
 - Building business-focused dashboards  
